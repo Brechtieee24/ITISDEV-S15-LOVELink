@@ -1,0 +1,23 @@
+{
+  "name": "itisdev-s15-lovelink",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brechtieee24/ITISDEV-S15-LOVELink.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brechtieee24/ITISDEV-S15-LOVELink/issues"
+  },
+  "homepage": "https://github.com/Brechtieee24/ITISDEV-S15-LOVELink#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
