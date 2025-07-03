@@ -1,9 +1,24 @@
-#root {
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: auto;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+/*#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+}*/
 
 .logo {
   height: 6em;
