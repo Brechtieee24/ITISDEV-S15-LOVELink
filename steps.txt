@@ -1,4 +1,4 @@
-1. npm create vite@latest
+1. npm create vite@latest (No need just straight to cd LOVELink)
 2. cd LOVELink
 3. npm install
 4. npm run dev (to start the server)
