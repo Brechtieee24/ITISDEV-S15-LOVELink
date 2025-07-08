@@ -32,7 +32,7 @@ async function getMemberResidency(memberId) {
     }
 }
 
-async function getMembersWithLessThan4Hours() {
+async function filteredMembers() {
     try {
         const records = await Schema.residencyhour.find().lean();
 
@@ -42,7 +42,7 @@ async function getMembersWithLessThan4Hours() {
             const memberId = record.memberId.toString();
             const timeIn = new Date(record.timeIn);
             const timeOut = new Date(record.timeOut);
-            const durationInHours = (timeOut - timeIn) / (1000 * 60 * 60); // ms to hours
+            const durationInHours = (timeOut - timeIn) / (1000 * 60 * 60); // ms to hours which = 4 hrs
 
             if (!memberHours[memberId]) {
                 memberHours[memberId] = 0;
@@ -63,3 +63,9 @@ async function getMembersWithLessThan4Hours() {
         throw error;
     }
 }
+
+module.exports = {
+    createNewResidency,
+    getMemberResidency,
+    filteredMembers
+};

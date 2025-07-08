@@ -32,3 +32,8 @@ async function getEventsOfUser(memberId) {
         throw error;
     }
 }
+
+module.exports = {
+   addEventParticipation,
+   getEventsOfUser
+};
