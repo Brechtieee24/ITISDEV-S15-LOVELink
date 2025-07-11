@@ -1,0 +1,73 @@
+<div class="profile-container">
+  {{> navbar activePage="profile" }}
+
+  <!-- Avatar and Name/Bio Section -->
+  <div class="user-info-section">
+    <div class="user-avatar-wrapper">
+      <img class="user-avatar" src="/images/user.png" alt="User" />
+    </div>
+    <div class="user-text-section">
+      <div class="profile-name">
+        Jules Dela Cruz <span class="italic">(MAE)</span>
+      </div>
+      <textarea class="bio-textarea">Hi! My name is Jules.</textarea>
+    </div>
+  </div>
+
+  <!-- Bottom Content: Confirm Button, Residency & Activities -->
+  <div class="info-sections-wrapper">
+    <div class="left-column">
+      <!-- Confirm Bio Button -->
+      <button class="confirm-btn-wrapper" type="submit">
+        <div class="confirm-btn-text">Confirm Bio</div>
+      </button>
+
+      <!-- Residency Hours -->
+      <div class="residency-container">
+        <div class="residency-label-wrapper">
+          <div class="residency-label-text">Residency Hours</div>
+        </div>
+        <div class="residency-section">
+          <div class="residency-month may">
+            <span>May:</span> <span>8 hours and 10 Minutes</span>
+          </div>
+          <div class="residency-month june">
+            <span>June:</span> <span>8 hours and 10 Minutes</span>
+          </div>
+          <div class="residency-month july">
+            <span>July:</span> <span>8 hours and 10 Minutes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activities List -->
+    <div class="right-column">
+      <div class="activities-container">
+        <div class="activities-label-wrapper">
+          <div class="activities-label-text">List of Activities</div>
+        </div>
+        <div class="activities-section">
+          <div class="activities-header">
+            <div class="activities-title">Title</div>
+            <div class="activities-date">Date</div>
+          </div>
+          <div class="activity-entries">
+            <div class="activity-entry">
+              <span>Community Outreach</span>
+              <span>July 2, 2025</span>
+            </div>
+            <div class="activity-entry">
+              <span>Seminar</span>
+              <span>July 9, 2025</span>
+            </div>
+            <div class="activity-entry">
+              <span>Seminar</span>
+              <span>July 12, 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

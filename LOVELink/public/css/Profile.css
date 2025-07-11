@@ -1,32 +1,29 @@
-/* Profile.css */
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 
 .profile-container {
-  width: 100vw;
-  min-height: 100vh;
-  padding: 100px 40px 40px 40px;
+  width: 100%;
+  min-height: 100dvh;
+  padding: 100px 96px 40px 96px;
   background: #B0C4BB;
   font-family: 'Arvo', serif;
-  overflow-y: auto; 
-  overflow-x: hidden;
   box-sizing: border-box;
-  position: relative;
 }
 
-.main-content-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 40px auto;
-  max-width: 1440px;
-  gap: 62px;
-}
-
+/* User Info Section */
 .user-info-section {
   display: flex;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   gap: 30px;
-  margin-left: 96px;
-  margin-top: 60px; 
+  margin: 0 auto 40px auto;
+  max-width: 1440px;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .user-avatar-wrapper {
@@ -38,6 +35,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .user-avatar {
@@ -47,11 +45,16 @@
   border-radius: 50%;
 }
 
-/* Name and Bio */
+.user-text-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: -40px;
+}
+
 .profile-name {
-  margin-top: 0;
   font-size: 64px;
-  font-family: 'Arvo', serif;
   font-weight: 700;
   color: #465D5D;
 }
@@ -63,16 +66,40 @@
 .profile-bio {
   margin-top: 20px;
   font-size: 32px;
-  font-family: 'Arvo', serif;
   font-weight: 400;
   color: white;
 }
 
-/* Update Bio Button */
-.update-btn-wrapper {
-  margin-top: 10px;
-  margin-left: 47px;
-  margin-bottom: 20px;
+/* Centered Confirm Button */
+.centered-button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* Info Sections */
+.info-sections-wrapper {
+  display: flex;
+  gap: 62px;
+  margin-top: 40px;
+  padding: 0 96px;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Update/Confirm Button */
+.update-btn-wrapper,
+.confirm-btn-wrapper {
   width: 240px;
   height: 70px;
   background: #6C9293;
@@ -80,19 +107,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
 }
 
-.update-btn-text {
+.confirm-btn-wrapper {
+  background: #FA4736;
+}
+
+.update-btn-text,
+.confirm-btn-text {
   color: white;
   font-size: 32px;
   font-family: 'Arimo Hebrew Subset', sans-serif;
   font-weight: 700;
 }
 
+/* Residencies Section */
 .residency-container {
   display: flex;
   flex-direction: column;
+  margin-top: 30px; 
+  width: 100%;
+  max-width: 822px; 
+  margin-left: -40px; 
+  margin-right: auto;
 }
+
 
 .residency-label-wrapper {
   width: 362px;
@@ -103,26 +145,6 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-}
-
-.info-sections-wrapper {
-  display: flex;
-  gap: 62px;
-  margin-top: 90px;         
-  margin-left: 96px;       
-  margin-right: 96px;
-  align-items: flex-start;  
-}
-
-.left-column {
-  display: flex;
-  flex-direction: column;
-  margin-left: 0; 
-  }
-
-.right-column {
-  display: flex;
-  flex-direction: column;
 }
 
 .residency-label-text {
@@ -152,18 +174,19 @@
   gap: 5px;
 }
 
-.residency-month.may { font-weight: 700; }
-.residency-month.may span:last-child { font-weight: 400; }
-.residency-month.june { font-weight: 700; }
-.residency-month.june span:last-child { font-weight: 400; }
-.residency-month.july { font-weight: 700; }
-.residency-month.july span:last-child { font-weight: 400; }
+.residency-month span:first-child {
+  font-weight: 700;
+}
 
+.residency-month span:last-child {
+  font-weight: 400;
+}
+
+/* Activities */
 .activities-container {
   display: flex;
   flex-direction: column;
   width: 822px;
-  margin-right: 96px;
 }
 
 .activities-label-wrapper {
@@ -187,7 +210,6 @@
   background: #D9D9D9;
   padding: 22px 40px;
   box-sizing: border-box;
-  height: auto;
 }
 
 .activities-header {
@@ -233,45 +255,75 @@
   resize: none;
 }
 
-.confirm-btn-wrapper {
-  margin-top: 10px;
-  margin-left: 47px;
-  margin-bottom: 20px;
-  width: 240px;
-  height: 70px;
-  background: #FA4736;
-  border-radius: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.confirm-btn-text {
-  color: white;
-  font-size: 32px;
-  font-family: 'Arimo Hebrew Subset', sans-serif;
-  font-weight: 700;
-}
-
-/* Responsive fallback */
+/* Responsive */
 @media (max-width: 1200px) {
-  .main-content-wrapper {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
+  .main-content-wrapper,
+  .info-sections-wrapper,
   .user-info-section {
     flex-direction: column;
     align-items: center;
-    margin-left: 0;
+    padding: 0 20px;
   }
-  .bio-textarea {
-    margin-left: 0;
-  }
-  .activities-container, .residency-container {
+
+  .activities-container,
+  .residency-section {
     width: 100%;
     max-width: 822px;
-    margin-left: 0;
-    margin-right: 0;
+  }
+
+  .profile-name,
+  .profile-bio {
+    text-align: center;
+  }
+
+  .user-text-section {
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .centered-button-wrapper {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-name {
+    font-size: 36px;
+  }
+
+  .profile-bio {
+    font-size: 20px;
+  }
+
+  .update-btn-wrapper,
+  .confirm-btn-wrapper {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+  }
+
+  .residency-label-wrapper,
+  .residency-section {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+  }
+
+  .activities-label-text,
+  .residency-label-text {
+    font-size: 24px;
+  }
+
+  .activities-title,
+  .activities-date {
+    font-size: 20px;
+  }
+
+  .activity-entry {
+    font-size: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 }
