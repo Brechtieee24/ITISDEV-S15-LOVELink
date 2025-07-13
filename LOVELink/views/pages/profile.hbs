@@ -8,10 +8,10 @@
 
   <div class="user-text-section">
     <div class="profile-name">
-      Jules Dela Cruz <span class="italic">(MAE)</span>
+      {{firstName}} {{lastName}} <span class="italic">({{committee}})</span>
     </div>
     <div class="profile-bio">
-      Hi! My name is Jules.
+      {{aboutInfo}}
     </div>
   </div>
 </div>
@@ -60,7 +60,7 @@
           <div class="activity-entries">
             {{#each activities}}
               <div class="activity-entry">
-                <span>{{this.title}}</span>
+                <span>{{this.eventName}}</span>
                 <span>{{this.date}}</span>
               </div>
             {{/each}}
