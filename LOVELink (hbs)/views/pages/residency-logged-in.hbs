@@ -1,0 +1,52 @@
+<!-- residency-logged-in.hbs -->
+<div class="residency-page">
+  {{> navbar activePage="residency" }}
+
+  <div class="main-content-wrapper">
+    <!-- Left Column (Avatar, Button, QR) -->
+    <div class="left-column">
+      <div class="user-avatar-wrapper">
+        <img class="user-avatar" src="/images/user.png" alt="User" />
+      </div>
+
+      <!-- Time Out Button -->
+      <a href="#" class="update-btn-wrapper time-out-btn">
+        <div class="update-btn-text">Time Out</div>
+      </a>
+
+      <!-- QR Code -->
+      <div class="qr-code-wrapper">
+        <img class="qr-img" src="/images/barcode.png" alt="QR Code" />
+      </div>
+    </div>
+
+    <!-- Right Column (Name, Date, Table, Buttons) -->
+    <div class="right-column">
+      <!-- Name -->
+      <div class="profile-name">
+        Jules Dela Cruz <span class="italic">(MAE)</span>
+      </div>
+
+      <!-- Timestamp (Hardcoded Current Date) -->
+      <div class="current-timestamp">
+        Today is June 30, 2025 09:00:01
+      </div>
+
+      <!-- Residency Table (You are logged in, and Time-In) -->
+      <div class="residency-table-wrapper">
+        <div class="table-header">You are currently logged in!</div>
+        <div class="table-content">
+          <div class="table-row">
+            <strong>Time in:</strong> June 30, 2025 09:00:01
+          </div>
+        </div>
+      </div>
+
+      <!-- History Buttons -->
+      <div class="history-buttons center-buttons">
+        <div class="secondary-btn">Residency History</div>
+        <div class="secondary-btn">Activity History</div>
+      </div>
+    </div>
+  </div>
+</div>

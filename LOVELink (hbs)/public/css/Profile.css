@@ -1,0 +1,329 @@
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.profile-container {
+  width: 100%;
+  min-height: 100dvh;
+  padding: 100px 96px 40px 96px;
+  background: #B0C4BB;
+  font-family: 'Arvo', serif;
+  box-sizing: border-box;
+}
+
+/* User Info Section */
+.user-info-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  margin: 0 auto 40px auto;
+  max-width: 1440px;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.user-avatar-wrapper {
+  width: 335px;
+  height: 307px;
+  background: #D9D9D9;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  width: 211.82px;
+  height: 211.82px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-text-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: -40px;
+}
+
+.profile-name {
+  font-size: 64px;
+  font-weight: 700;
+  color: #465D5D;
+}
+
+.profile-name .italic {
+  font-style: italic;
+}
+
+.profile-bio {
+  margin-top: 20px;
+  font-size: 32px;
+  font-weight: 400;
+  color: white;
+}
+
+/* Centered Confirm Button */
+.centered-button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* Info Sections */
+.info-sections-wrapper {
+  display: flex;
+  gap: 62px;
+  margin-top: 40px;
+  padding: 0 96px;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Update/Confirm Button */
+.update-btn-wrapper,
+.confirm-btn-wrapper {
+  width: 240px;
+  height: 70px;
+  background: #6C9293;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.confirm-btn-wrapper {
+  background: #FA4736;
+}
+
+.update-btn-text,
+.confirm-btn-text {
+  color: white;
+  font-size: 32px;
+  font-family: 'Arimo Hebrew Subset', sans-serif;
+  font-weight: 700;
+}
+
+/* Residencies Section */
+.residency-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px; 
+  width: 100%;
+  max-width: 822px; 
+  margin-left: -40px; 
+  margin-right: auto;
+}
+
+
+.residency-label-wrapper {
+  width: 362px;
+  height: 70px;
+  background: #465D5D;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.residency-label-text {
+  color: white;
+  font-size: 32px;
+  font-family: 'Arimo Hebrew Subset', sans-serif;
+  font-weight: 700;
+}
+
+.residency-section {
+  width: 362px;
+  height: 177px;
+  background: #D9D9D9;
+  padding: 36px 43px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.residency-month {
+  font-size: 20px;
+  font-family: 'Arimo Hebrew Subset', sans-serif;
+  color: #3B3636;
+  display: flex;
+  gap: 5px;
+}
+
+.residency-month span:first-child {
+  font-weight: 700;
+}
+
+.residency-month span:last-child {
+  font-weight: 400;
+}
+
+/* Activities */
+.activities-container {
+  display: flex;
+  flex-direction: column;
+  width: 822px;
+}
+
+.activities-label-wrapper {
+  height: 70px;
+  background: #465D5D;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.activities-label-text {
+  color: white;
+  font-size: 32px;
+  font-family: 'Arimo Hebrew Subset', sans-serif;
+  font-weight: 700;
+}
+
+.activities-section {
+  background: #D9D9D9;
+  padding: 22px 40px;
+  box-sizing: border-box;
+}
+
+.activities-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.activities-title,
+.activities-date {
+  font-size: 32px;
+  font-family: 'Arimo Hebrew Subset', sans-serif;
+  font-weight: 700;
+  color: #465D5D;
+}
+
+.activity-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-entry {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-family: 'Arimo Hebrew Subset', sans-serif;
+  color: #3B3636;
+}
+
+.bio-textarea {
+  margin-top: 20px;
+  width: 550px;
+  height: 100px;
+  font-size: 28px;
+  font-family: 'Arvo', serif;
+  font-weight: 400;
+  color: #465D5D;
+  background-color: white;
+  padding: 10px;
+  border: 2px solid #465D5D;
+  border-radius: 12px;
+  resize: none;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .main-content-wrapper,
+  .info-sections-wrapper,
+  .user-info-section {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .activities-container,
+  .residency-section {
+    width: 100%;
+    max-width: 822px;
+  }
+
+  .profile-name,
+  .profile-bio {
+    text-align: center;
+  }
+
+  .user-text-section {
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .centered-button-wrapper {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-name {
+    font-size: 36px;
+  }
+
+  .profile-bio {
+    font-size: 20px;
+  }
+
+  .update-btn-wrapper,
+  .confirm-btn-wrapper {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+  }
+
+  .residency-label-wrapper,
+  .residency-section {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+  }
+
+  .activities-label-text,
+  .residency-label-text {
+    font-size: 24px;
+  }
+
+  .activities-title,
+  .activities-date {
+    font-size: 20px;
+  }
+
+  .activity-entry {
+    font-size: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

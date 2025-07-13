@@ -1,0 +1,72 @@
+<div class="profile-container">
+  {{> navbar activePage="profile" }}
+
+<div class="user-info-section">
+  <div class="user-avatar-wrapper">
+    <img class="user-avatar" src="/images/user.png" alt="User" />
+  </div>
+
+  <div class="user-text-section">
+    <div class="profile-name">
+      Jules Dela Cruz <span class="italic">(MAE)</span>
+    </div>
+    <div class="profile-bio">
+      Hi! My name is Jules.
+    </div>
+  </div>
+</div>
+
+
+  <!-- Info Sections -->
+  <div class="info-sections-wrapper">
+    <div class="left-column">
+
+      <!-- Update Bio Button -->
+      <a href="/edit-profile" class="update-btn-wrapper" style="cursor: pointer;">
+        <div class="update-btn-text">Update Bio</div>
+      </a>
+
+      <!-- Residency Hours -->
+      <div class="residency-container">
+        <div class="residency-label-wrapper">
+          <div class="residency-label-text">Residency Hours</div>
+        </div>
+        <div class="residency-section">
+          <div class="residency-month may">
+            <span>May:</span> <span>{{residency.may}}</span>
+          </div>
+          <div class="residency-month june">
+            <span>June:</span> <span>{{residency.june}}</span>
+          </div>
+          <div class="residency-month july">
+            <span>July:</span> <span>{{residency.july}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Activities -->
+    <div class="right-column">
+      <div class="activities-container">
+        <div class="activities-label-wrapper">
+          <div class="activities-label-text">List of Activities</div>
+        </div>
+        <div class="activities-section">
+          <div class="activities-header">
+            <div class="activities-title">Title</div>
+            <div class="activities-date">Date</div>
+          </div>
+          <div class="activity-entries">
+            {{#each activities}}
+              <div class="activity-entry">
+                <span>{{this.title}}</span>
+                <span>{{this.date}}</span>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
