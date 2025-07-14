@@ -59,6 +59,9 @@ app.use('/', residencyRoute);
 const activitiesRoute = require('./routes/organizationActivitiesRoute');
 app.use('/', activitiesRoute);
 
+const notFoundRoute = require('./routes/notfoundRoute');
+app.use('/', notFoundRoute);
+
 
 // Start server
 app.listen(PORT, () => {
