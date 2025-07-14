@@ -12,9 +12,9 @@ router.get('/', (req, res) => {
 
 
 // GET /profile
-router.get('/profile', async (req, res) => {
+router.get('/profile/', async (req, res) => {
 
-  const email = req.session.email || "albrecht_abad@dlsu.edu.ph";
+  const email = "albrecht_abad@dlsu.edu.ph"; // update to user session
   const userData = await membersDataModule.getUser(email);
   const userActivities = await activitiesDataModule.getEventsOfUser(userData?._id || "6867bf48e8c956da7989a9c2"); // hardcoded yung id
  
@@ -38,7 +38,7 @@ router.get('/profile', async (req, res) => {
 });
 
 // Other profile page
-router.get('/others-profile', (req, res) => {
+router.get('/others-profile', async (req, res) => {
   res.render('pages/others-profile', {styles: '<link rel="stylesheet" href="/css/Profile.css">'}); 
 });
 

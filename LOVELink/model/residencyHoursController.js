@@ -32,6 +32,19 @@ async function getMemberResidency(memberId) {
     }
 }
 
+async function getLatestMemberResidency(memberId) {
+    try {
+        const latestRecord = await Schema.residencyhour.findOne({ memberId })
+            .sort({ timeOut: -1 }) // Sort by most recent timeOut
+            .lean();
+        return latestRecord;
+    } catch (error) {
+        console.error('Error fetching latest residency record:', error);
+        throw error;
+    }
+}
+
+
 async function filteredMembers() {
     try {
         const records = await Schema.residencyhour.find().lean();
@@ -67,5 +80,6 @@ async function filteredMembers() {
 module.exports = {
     createNewResidency,
     getMemberResidency,
+    getLatestMemberResidency,
     filteredMembers
 };

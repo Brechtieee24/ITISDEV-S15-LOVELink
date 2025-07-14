@@ -22,8 +22,6 @@ app.use(session({
      } 
 }));
 
-const membersDataModule = require('./model/membersController.js');
-
 // Set view engine
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
