@@ -16,7 +16,7 @@
 
       <!-- QR Code -->
       <div class="qr-code-wrapper">
-        <img class="qr-img" src="/images/barcode.png" alt="QR Code" />
+        <img class="qr-img" src="{{qrCode}}" alt="QR Code" />
       </div>
     </div>
 
@@ -24,7 +24,7 @@
     <div class="right-column">
       <!-- Name -->
       <div class="profile-name">
-        Jules Dela Cruz <span class="italic">(MAE)</span>
+        {{firstName}} {{lastName}} <span class="italic">({{committee}})</span>
       </div>
 
       <!-- Timestamp (Hardcoded Current Date) -->

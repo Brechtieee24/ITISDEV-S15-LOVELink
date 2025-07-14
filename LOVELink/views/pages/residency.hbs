@@ -16,7 +16,7 @@
 
       <!-- QR Code -->
       <div class="qr-code-wrapper">
-        <img class="qr-img" src="/images/barcode.png" alt="QR Code" />
+        <img class="qr-img" src="{{qrCode}}" alt="QR Code" />
       </div>
     </div>
 
@@ -24,7 +24,7 @@
     <div class="right-column">
       <!-- Name -->
       <div class="profile-name">
-        Jules Dela Cruz <span class="italic">(MAE)</span>
+        {{firstName}} {{lastName}} <span class="italic">({{committee}})</span>
       </div>
 
       <!-- Timestamp -->
@@ -37,13 +37,13 @@
         <div class="table-header">Previous Residency</div>
         <div class="table-content">
           <div class="table-row">
-            <strong>Time in:</strong> June 30, 2025 08:00:01
+            <strong>Time in:</strong> {{latestTimeIn}}
           </div>
           <div class="table-row">
-            <strong>Time out:</strong> June 30, 2025 15:04:01
+            <strong>Time out:</strong> {{latestTimeOut}}
           </div>
           <div class="table-row">
-            <strong>Total:</strong> 7 hours and 4 minutes
+            <strong>Total:</strong> {{duration}}
           </div>
         </div>
       </div>
