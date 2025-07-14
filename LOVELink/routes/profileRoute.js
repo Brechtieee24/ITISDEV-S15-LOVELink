@@ -6,7 +6,9 @@ const residencyDataModule = require('../model/residencyHoursController');
 
 // Redirect root to profile
 router.get('/', (req, res) => {
-  res.redirect('/profile');
+  // res.redirect('/profile');
+  res.redirect('/organization-activities');
+
 });
 
 

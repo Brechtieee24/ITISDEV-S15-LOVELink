@@ -50,6 +50,9 @@ app.use('/', editProfileRoute);
 const residencyRoute = require('./routes/residencyRoute');
 app.use('/', residencyRoute);
 
+const activitiesRoute = require('./routes/organizationActivitiesRoute');
+app.use('/', activitiesRoute);
+
 
 // Start server
 app.listen(PORT, () => {
