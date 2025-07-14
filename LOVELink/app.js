@@ -41,6 +41,12 @@ hbs.registerHelper('concatClass', function(baseClass, condition, conditionalClas
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
+const homeRoute = require('./routes/homeRoute'); 
+app.use('/', homeRoute);
+
+const landingRoute = require('./routes/landingRoute'); 
+app.use('/', landingRoute);
+
 const profileRoute = require('./routes/profileRoute');
 app.use('/', profileRoute);
 
