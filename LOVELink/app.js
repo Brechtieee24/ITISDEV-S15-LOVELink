@@ -22,7 +22,7 @@ app.use(session({
      } 
 }));
 
-const membersDataModule = require('../model/membersController.js');
+const membersDataModule = require('./model/membersController.js');
 
 // Set view engine
 app.set('view engine', 'hbs');
