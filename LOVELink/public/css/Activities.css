@@ -56,3 +56,26 @@ body {
 .event-container p{
     color: #465D5D;
 }
+
+/* For the return button */
+.return {
+    grid-area: return;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.return-button {
+    display: inline-block;
+    width: 250px;
+    background-color: #465D5D;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.return-button:hover {
+    background-color: #334444;
+}

@@ -7,15 +7,16 @@
         </div>
 
         <div class = activities>
-            <div class = event-container> 
-                <p>For the Kids 2026</p>
-                <p>June 30, 2025</p>
-            </div>
+            {{#each events}}
+                <div class = event-container> 
+                    <p>{{this.eventName}}</p>
+                    <p>{{this.date}}</p>
+                </div>
+            {{/each}}
         </div>
 
-        <div class = return>
-            <h2> return button </h2>
-        </div>
-
+      <div class="return">
+        <a href="/home" class="return-button">Return</a>
+      </div>
     </div>
 </div>
