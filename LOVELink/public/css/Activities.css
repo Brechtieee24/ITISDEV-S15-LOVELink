@@ -1,0 +1,58 @@
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.view-activities-page{
+    width: 100%;
+    min-height: 100dvh;
+    padding: 100px 96px 40px 96px;
+    background: #B0C4BB;
+    font-family: 'Arvo', serif;
+    box-sizing: border-box;
+}
+
+/* For the title */
+.content-container{
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr ;
+    grid-template-areas:
+    "title"
+    "activities"
+    "return"
+}
+
+.title{
+    grid-area: title;
+    text-align: center;
+}
+.title h1{
+    color: #465D5D
+}
+
+/* For the main content */
+.activities {
+    grid-area: activities;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-container {
+    width: 1000px;
+    background-color: #E5E5E5;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.event-container p{
+    color: #465D5D;
+}

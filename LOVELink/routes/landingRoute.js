@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/landing', (req, res) => {
+// Redirect root to landing page
+router.get('/', (req, res) => {
   res.render('pages/landing', {
     title: 'Landing Page',
     styles: '<link rel="stylesheet" href="/css/landing.css">',

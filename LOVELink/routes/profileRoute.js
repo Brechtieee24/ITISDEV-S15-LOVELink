@@ -4,15 +4,6 @@ const membersDataModule = require('../model/membersController.js');
 const activitiesDataModule = require('../model/activityParticipationsController');
 const residencyDataModule = require('../model/residencyHoursController');
 
-// Redirect root to profile
-router.get('/', (req, res) => {
-  // res.redirect('/profile');
-  res.redirect('/organization-activities');
-
-});
-
-
-
 // GET /profile
 router.get('/profile/', async (req, res) => {
 
