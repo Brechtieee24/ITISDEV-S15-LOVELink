@@ -1,6 +1,5 @@
 const Schema = require('./schema');
 const Event = Schema.event;
-const activitiesDataModule = require('../model/organizationActivitiesController.js');
 const membersDataModule = require('../model/membersController.js');
 
 // Loads the View Organization Activities Page
