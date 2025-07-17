@@ -16,6 +16,9 @@
         </div>
 
       <div class="return">
+         {{#if user.isOfficer}}
+            <a href="/home" class="return-button">Add Event</a>
+        {{/if}}
         <a href="/home" class="return-button">Return</a>
       </div>
     </div>
