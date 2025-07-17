@@ -17,7 +17,25 @@
 
       <div class="return">
          {{#if user.isOfficer}}
-            <a href="/home" class="return-button">Add Event</a>
+            <button class="add-event-button" onclick="document.getElementById('input-panel').style.display = 'block'">
+                Add Event
+            </button>
+            <div id="input-panel" class="add-event-container" style="display:none;">
+                <div class="top-part"> 
+                    <span class="close-button" onclick="document.getElementById('input-panel').style.display='none'">x</span>
+                </div>
+                <div class="bottom-part">
+                    <form action="/add-event" method = "post"> 
+                        <label for="ename">Event Name:</label>
+                        <input type="text" id="ename" name="ename"><br><br>
+
+                        <label for="date">Date:</label>
+                        <input type="text" id="date" name="date"><br><br>
+
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
         {{/if}}
         <a href="/home" class="return-button">Return</a>
       </div>

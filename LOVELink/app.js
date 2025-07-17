@@ -16,6 +16,7 @@ const DB_URI = process.env.DB_URI;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Sessions
 app.use(session({
