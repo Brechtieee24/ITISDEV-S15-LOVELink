@@ -124,7 +124,8 @@ body {
         "bottom-part"
 }
 
-.add-event-container .top-part {
+.top-part {
+    grid-area: top-part;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -137,6 +138,10 @@ body {
     padding: 5px 10px;
     border-radius: 50%;
     transition: background-color 0.2s;
+}
+
+.bottom-part {
+    grid-area: bottom-part;
 }
 
 .close-button:hover {
