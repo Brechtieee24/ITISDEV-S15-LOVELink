@@ -4,15 +4,6 @@ const membersDataModule = require('../model/membersController.js');
 const activitiesDataModule = require('../model/activityParticipationsController');
 const residencyDataModule = require('../model/residencyHoursController');
 
-// Redirect root to profile
-router.get('/', (req, res) => {
-  // res.redirect('/profile');
-  res.redirect('/organization-activities');
-
-});
-
-
-
 // GET /profile
 router.get('/profile/', async (req, res) => {
 
@@ -30,6 +21,7 @@ router.get('/profile/', async (req, res) => {
     lastName: userData?.lastName,
     committee: userData?.committee,
     aboutInfo: userData?.aboutInfo,
+    showNavBar: true,
     residency: {
       may: '8 hours and 10 Minutes',
       june: '8 hours and 10 Minutes',

@@ -77,6 +77,7 @@ router.get('/residency-logged-in', async (req, res) => {
     lastName: userData?.lastName,
     committee: userData?.committee,
     qrCode: qrDataUrl, 
+    showNavBar: true,
     styles: `
       <link rel="stylesheet" href="/css/Profile.css">
       <link rel="stylesheet" href="/css/Residency.css">

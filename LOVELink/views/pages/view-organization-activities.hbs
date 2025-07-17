@@ -1,3 +1,43 @@
 <div class = view-activities-page>
     {{> navbar activePage="home" }}
+
+    <div class = content-container>
+        <div class = title>
+            <h1>COSCA-LOVE's  Activities</h1>
+        </div>
+
+        <div class = activities>
+            {{#each events}}
+                <div class = event-container> 
+                    <p>{{this.eventName}}</p>
+                    <p>{{this.date}}</p>
+                </div>
+            {{/each}}
+        </div>
+
+      <div class="return">
+         {{#if user.isOfficer}}
+            <button class="add-event-button" onclick="document.getElementById('input-panel').style.display = 'block'">
+                Add Event
+            </button>
+            <div id="input-panel" class="add-event-container" style="display:none;">
+                <div class="top-part"> 
+                    <span class="close-button" onclick="document.getElementById('input-panel').style.display='none'">x</span>
+                </div>
+                <div class="bottom-part">
+                    <form action="/add-event" method = "post"> 
+                        <label for="ename">Event Name:</label>
+                        <input type="text" id="ename" name="ename"><br><br>
+
+                        <label for="date">Date:</label>
+                        <input type="text" id="date" name="date"><br><br>
+
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        {{/if}}
+        <a href="/home" class="return-button">Return</a>
+      </div>
+    </div>
 </div>
