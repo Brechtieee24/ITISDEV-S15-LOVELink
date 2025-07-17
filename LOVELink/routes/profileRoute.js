@@ -21,6 +21,7 @@ router.get('/profile/', async (req, res) => {
     lastName: userData?.lastName,
     committee: userData?.committee,
     aboutInfo: userData?.aboutInfo,
+    showNavBar: true,
     residency: {
       may: '8 hours and 10 Minutes',
       june: '8 hours and 10 Minutes',

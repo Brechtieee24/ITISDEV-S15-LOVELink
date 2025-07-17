@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   res.render('pages/landing', {
     title: 'Landing Page',
     styles: '<link rel="stylesheet" href="/css/landing.css">',
-    hideNavbar: true // not sure kung bakit hindi nagana pero dapat walang navbar sa landing page
+    showNavBar: false // not sure kung bakit hindi nagana pero dapat walang navbar sa landing page
   });
 });
 
