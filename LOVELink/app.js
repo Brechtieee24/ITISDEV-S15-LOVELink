@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+app.use(express.urlencoded({ extended: true }));
+
 // DB Related
 const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
