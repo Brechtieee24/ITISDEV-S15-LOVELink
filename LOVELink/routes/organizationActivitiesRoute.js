@@ -7,6 +7,8 @@ const membersDataModule = require('../model/membersController.js');
 router.get('/organization-activities', async (req, res) => {
    try {
         const email = "albrecht_abad@dlsu.edu.ph"; // update to user session
+        // const email = "cedric_ong@dlsu.edu.ph"; // update to user session
+
         const userData = await membersDataModule.getUser(email);
         const events = await activitiesDataModule.get_all_activities();
         console.log(events);
