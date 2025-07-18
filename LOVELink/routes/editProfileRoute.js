@@ -28,12 +28,14 @@ router.get('/edit-profile', async (req, res) => {
 router.post('/save-profile', async (req, res) => {
   try {
     const email = req.session.user.email; // get user from session
-    const { aboutInfo } = req.body; // di pa naguupdate as of now
+    const { aboutInfo } = req.body;
 
-    console.log("BIO", aboutInfo);
+    // Get user from email
+    const user = await membersDataModule.getUser(email);
+    if (!user) throw new Error("User not found!");
 
-    // Update in DB
-    await membersDataModule.updateAboutInfo(email, aboutInfo);
+    // Update in DB using user._id
+    await membersDataModule.updateAboutInfo(user._id, aboutInfo);
 
     res.redirect('/profile'); // Redirect back to profile after saving
   } catch (err) {
