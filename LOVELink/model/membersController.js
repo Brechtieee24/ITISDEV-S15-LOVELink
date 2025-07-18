@@ -21,9 +21,9 @@ async function getUser(userEmail){
 
 }
 
-async function updateAboutInfo(memberId, aboutInfo) {
+async function updateAboutInfo(email, aboutInfo) {
     try {
-        const user = await Schema.member.findOne({ _id: memberId }).exec();
+        const user = await Schema.member.findOne({ email }).exec();
         if (!user) return null;
 
         user.aboutInfo = aboutInfo;

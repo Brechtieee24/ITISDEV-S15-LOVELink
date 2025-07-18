@@ -7,11 +7,12 @@ const residencyDataModule = require('../model/residencyHoursController');
 // GET /profile
 router.get('/profile/', async (req, res) => {
 
-  const email = "albrecht_abad@dlsu.edu.ph"; // update to user session
+  const email = req.session.user.email; // update to user session
   const userData = await membersDataModule.getUser(email);
-  const userActivities = await activitiesDataModule.getEventsOfUser(userData?._id || "6867bf48e8c956da7989a9c2"); // hardcoded yung id
+  const userActivities = await activitiesDataModule.getEventsOfUser(userData?._id); 
  
   console.log("Looking for email:", email);
+  console.log(req.session.user.photo);
 
   res.render('pages/profile', {
     title: 'Profile',
@@ -21,6 +22,7 @@ router.get('/profile/', async (req, res) => {
     lastName: userData?.lastName,
     committee: userData?.committee,
     aboutInfo: userData?.aboutInfo,
+    photo: req.session.user.photo,
     showNavBar: true,
     residency: {
       may: '8 hours and 10 Minutes',
