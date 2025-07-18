@@ -28,8 +28,8 @@
       </div>
 
       <!-- Timestamp -->
-      <div class="current-timestamp">
-        Today is June 30, 2025 09:00:01
+      <div class="current-timestamp" id="timestamp">
+        Today is ...
       </div>
 
       <!-- Previous Residency Table -->
@@ -50,4 +50,31 @@
 
       <!-- History Buttons -->
       <div class="history-buttons center-buttons">
-        <div class="seconda
+        <div class="secondary"></div>
+
+
+  <script>
+  function updateTimestamp() {
+    // Create a new Date and convert to UTC+8 (Philippine Time)
+    const now = new Date();
+    const options = {
+      timeZone: 'Asia/Manila',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-PH', options);
+    document.getElementById('timestamp').innerText = `Today is ${formatter.format(now)}`;
+  }
+
+  // Update once immediately
+  updateTimestamp();
+
+  // Then update every second
+  setInterval(updateTimestamp, 1000);
+  </script>

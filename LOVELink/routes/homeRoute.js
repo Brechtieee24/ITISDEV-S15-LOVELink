@@ -5,7 +5,7 @@ router.get('/home', (req, res) => {
   if (!req.isAuthenticated()) return res.redirect('/');
 
   const user = req.user || {};
-  const photo = user.photo || '/default.png';
+  const photo = req.session.user.photo || '/default.png';
 
   console.log("User:", user);
 
