@@ -1,27 +1,102 @@
 <div class="profile-container">
   {{> navbar activePage="profile" }}
 
-  <!-- Avatar and Name/Bio Section -->
-  <div class="user-info-section">
-    <div class="user-avatar-wrapper">
-      <img class="user-avatar" src="{{photo}}" alt="User" />
-    </div>
-    <div class="user-text-section">
-      <div class="profile-name">
-        {{firstName}} {{lastName}} <span class="italic">({{committee}})</span>
+  <!-- Start Form Wrapper -->
+  <form id="bioForm">
+    <div class="user-info-section">
+      <div class="user-avatar-wrapper">
+        <img class="user-avatar" src="{{photo}}" alt="User" />
       </div>
-        <form action="/save-profile" method="post">
-        <textarea class="bio-textarea" name="aboutInfo" required>{{aboutInfo}}</textarea>
-        <button class="confirm-btn-text confirm-btn-wrapper" type="submit">Save Bio</button>
-      </form>
-    </div>
-  </div>
 
-  <!-- Bottom Content: Confirm Button, Residency & Activities -->
-  <div class="info-sections-wrapper">
-    <div class="left-column">
-      <form action="/save-profile" method="post">
-        <button class="confirm-btn-text confirm-btn-wrapper">Save Bio</button>
-      </form>
+      <div class="user-text-section">
+        <div class="profile-name">
+          {{firstName}} {{lastName}} <span class="italic">({{committee}})</span>
+        </div>
+
+        <!-- Bio Textarea -->
+        <textarea id="bioInput" class="bio-textarea" name="aboutInfo" required>{{aboutInfo}}</textarea>
+      </div>
     </div>
+
+    <!-- Save Button Outside user-info-section -->
+    <div class="info-sections-wrapper">
+      <button id="saveBioBtn" class="confirm-btn-text confirm-btn-wrapper" type="submit">
+        Save Bio
+      </button>
+    </div>
+  </form>
 </div>
+
+<!-- Bio Saved Modal -->
+<div id="bioModal" class="modal">
+  <div class="modal-content">
+    <p>Bio updated!</p>
+    <button id="closeModal">OK</button>
+  </div>
+</div>
+
+<!-- Modal Styles -->
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background-color: white;
+  margin: 20% auto;
+  padding: 20px 30px;
+  border-radius: 10px;
+  width: fit-content;
+  text-align: center;
+}
+#closeModal {
+  margin-top: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+</style>
+
+<!-- JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('bioForm');
+    const input = document.getElementById('bioInput');
+    const modal = document.getElementById('bioModal');
+    const closeBtn = document.getElementById('closeModal');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const aboutInfo = input.value;
+
+      try {
+        const response = await fetch('/save-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ aboutInfo })
+        });
+
+        if (response.ok) {
+          // Show modal instead of alert
+          modal.style.display = 'block';
+        } else {
+          const text = await response.text();
+          alert("Failed to update: " + text);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("Something went wrong");
+      }
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      window.location.href = '/profile'; // Refresh to show updated bio
+    });
+  });
+</script>

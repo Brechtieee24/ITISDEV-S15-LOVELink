@@ -25,24 +25,26 @@ router.get('/edit-profile', async (req, res) => {
 });
 
 // save updated bio 
-router.post('/save-profile', async (req, res) => {
+router.post('/save-profile', express.json(), async (req, res) => {
   try {
-    const email = req.session.user.email; // get user from session
+    const email = req.session.user?.email;
     const { aboutInfo } = req.body;
 
-    // Get user from email
+    if (!email) return res.status(401).send('User not logged in');
+    if (!aboutInfo) return res.status(400).send('Bio cannot be empty');
+
     const user = await membersDataModule.getUser(email);
-    if (!user) throw new Error("User not found!");
+    if (!user) return res.status(404).send("User not found");
 
-    // Update in DB using user._id
-    await membersDataModule.updateAboutInfo(user._id, aboutInfo);
-
-    res.redirect('/profile'); // Redirect back to profile after saving
+    await membersDataModule.updateAboutInfo(email, aboutInfo);
+    res.status(200).send("Success");
   } catch (err) {
-    console.error('Error saving profile bio:', err);
-    res.status(500).send('Failed to save bio');
+    console.error("Error saving bio:", err);
+    res.status(500).send("Internal server error");
   }
 });
+
+
 
 
 module.exports = router;
