@@ -11,6 +11,11 @@
     <button class="logresidency-button">Log Residency</button>
   </form>
 
+  {{#if user.isOfficer}}
+    <form action="/log-activity" method="get">
+      <button class="logresidency-button">Log Activity</button>
+    </form>
+  {{/if}}
 
   <form action="/organization-activities" method="get">
     <button class="viewactivities-button">View Upcoming Activities</button>
