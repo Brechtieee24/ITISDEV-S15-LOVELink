@@ -9,6 +9,10 @@ const residencyDataModule = require('../model/residencyHoursController.js');
 router.get('/residency', async (req, res) =>  {
   if (!req.session.user) return res.redirect('/login');
 
+  if (req.session.timeIn) {
+    return res.redirect('/residency-logged-in');
+  }
+
   const email = req.session.user.email;
   const userData = await membersDataModule.getUser(email);
   const qrDataUrl = await QRCode.toDataURL(userData._id.toString());
@@ -151,6 +155,7 @@ router.get('/residency-logged-out', async (req, res) => {
 
   const durationString = `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
 
+  delete req.session.timeIn; // clear upon save
 
   res.render('pages/residency', {
   firstName: userData?.firstName,
