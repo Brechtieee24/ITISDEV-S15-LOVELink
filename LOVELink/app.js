@@ -54,7 +54,10 @@ passport.deserializeUser((userData, done) => {
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/auth/google/callback',
+  callbackURL: process.env.NODE_ENV === 'production'
+  ? 'https://lovelink-05v5.onrender.com/auth/google/callback'
+  : 'http://localhost:3000/auth/google/callback'
+,
   passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
   try {
