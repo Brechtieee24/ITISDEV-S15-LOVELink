@@ -5,9 +5,8 @@ const membersDataModule = require('../model/membersController.js');
 const residencyDataModule = require('../model/residencyHoursController.js');
 
 // Residency Landing
-
 router.get('/residency', async (req, res) =>  {
-  if (!req.session.user) return res.redirect('/login');
+  if (!req.session.user) return res.redirect('/');
 
   if (req.session.timeIn) {
     return res.redirect('/residency-logged-in');
@@ -63,6 +62,7 @@ router.get('/residency', async (req, res) =>  {
     latestTimeIn: formattedTimeIn,
     latestTimeOut: formattedTimeOut,
     duration: durationString,
+    photo: req.session.user.photo,
     qrCode: qrDataUrl,
     styles: `
       <link rel="stylesheet" href="/css/Profile.css">
@@ -76,14 +76,19 @@ router.get('/residency', async (req, res) =>  {
 // include session for temporary storage of time in
 router.get('/residency-logged-in', async (req, res) => {
   
+  if (!req.session.user) return res.redirect('/');
   const email = req.session.user.email; // update to user session
   const userData = await membersDataModule.getUser(email);
   const qrDataUrl = await QRCode.toDataURL(userData._id.toString()); // qr code generator
-
+  
   const timeIn = new Date();
-  req.session.timeIn = timeIn;
 
-  const formattedTimeIn = new Date(timeIn).toLocaleString('en-PH', {
+  if (req.session.timeIn == null) {
+    req.session.timeIn = timeIn;
+  }
+
+
+  const formattedTimeIn = new Date(req.session.timeIn).toLocaleString('en-PH', {
   timeZone: 'Asia/Manila',
   year: 'numeric',
   month: 'long',
@@ -101,6 +106,7 @@ router.get('/residency-logged-in', async (req, res) => {
     lastName: userData?.lastName,
     committee: userData?.committee,
     qrCode: qrDataUrl, 
+    photo: req.session.user.photo,
     timeIn: formattedTimeIn,
     showNavBar: true,
     styles: `
@@ -113,6 +119,7 @@ router.get('/residency-logged-in', async (req, res) => {
 // log out route
 router.get('/residency-logged-out', async (req, res) => {
   
+  if (!req.session.user) return res.redirect('/');
   const email = req.session.user.email; // update to user session
   const userData = await membersDataModule.getUser(email);
   const qrDataUrl = await QRCode.toDataURL(userData._id.toString()); // qr code generator
@@ -163,6 +170,7 @@ router.get('/residency-logged-out', async (req, res) => {
   committee: userData?.committee,
   latestTimeIn: formattedTimeIn,
   latestTimeOut: formattedTimeOut,
+  photo: req.session.user.photo,
   duration: durationString,
   qrCode: qrDataUrl,
   styles: `

@@ -15,8 +15,11 @@ router.get('/home', async (req, res) => {
     title: 'Home',
     styles: '<link rel="stylesheet" href="/css/home.css">',
     photo: photo,
-    user: userData
+    user: userData,
+    showNavBar: true, 
+    activePage: 'home' 
   });
-}); 
+});
+
 
 module.exports = router;

@@ -4,6 +4,7 @@ const membersDataModule = require('../model/membersController.js');
 
 // edit profile of user 
 router.get('/edit-profile', async (req, res) => {
+   if (!req.isAuthenticated()) return res.redirect('/');
   
   const email = req.session.user.email; // update to user session
   const userData = await membersDataModule.getUser(email);
@@ -26,6 +27,9 @@ router.get('/edit-profile', async (req, res) => {
 
 // save updated bio 
 router.post('/save-profile', express.json(), async (req, res) => {
+   if (!req.isAuthenticated()) return res.redirect('/');
+
+   
   try {
     const email = req.session.user?.email;
     const { aboutInfo } = req.body;

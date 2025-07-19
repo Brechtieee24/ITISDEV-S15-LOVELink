@@ -20,7 +20,7 @@ router.get('/not-found', (req, res) => {
   res.status(404).render('pages/not-found', {
     title: 'Not Found',
     showNavBar: false,
-    styles: '/css/not-found.css'
+    styles: '<link rel="stylesheet" href="/css/landing.css">'
   });
 });
 

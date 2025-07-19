@@ -35,16 +35,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport serialization/deserialization
-passport.serializeUser((user, done) => done(null, user.email));
-passport.deserializeUser(async (email, done) => {
-  try {
-    const user = await membersDataModule.getUser(email);
-    user.photo = user.photo || '/default.png';
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
+passport.serializeUser((user, done) => {
+  done(null, {
+    email: user.email,
+    photo: user.photo,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    committee: user.committee
+  });
 });
+
+passport.deserializeUser((userData, done) => {
+  done(null, userData);
+});
+
 
 // OAuth strategy
 passport.use(new GoogleStrategy({

@@ -9,6 +9,8 @@ router.post('/add-event', activitiesDataModule.add_event);
 
 
 router.get('/organization-activities', async (req, res) => {
+    if (!req.isAuthenticated()) return res.redirect('/');
+
    try {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);

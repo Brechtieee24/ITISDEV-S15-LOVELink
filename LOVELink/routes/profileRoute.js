@@ -6,6 +6,7 @@ const residencyDataModule = require('../model/residencyHoursController');
 
 // GET /profile
 router.get('/profile/', async (req, res) => {
+   if (!req.isAuthenticated()) return res.redirect('/');
 
   const email = req.session.user.email; // update to user session
   const userData = await membersDataModule.getUser(email);
@@ -35,6 +36,8 @@ router.get('/profile/', async (req, res) => {
 
 // Other profile page
 router.get('/others-profile', async (req, res) => {
+   if (!req.isAuthenticated()) return res.redirect('/');
+   
   res.render('pages/others-profile', {styles: '<link rel="stylesheet" href="/css/Profile.css">'}); 
 });
 
