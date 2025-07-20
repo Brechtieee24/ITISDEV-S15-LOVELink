@@ -63,7 +63,6 @@ router.get('/log-activity', async (req, res) =>  {
     latestTimeOut: formattedTimeOut,
     duration: durationString,
     photo: req.session.user.photo,
-    qrCode: qrDataUrl,
     styles: `
       <link rel="stylesheet" href="/css/Profile.css">
       <link rel="stylesheet" href="/css/Residency.css">

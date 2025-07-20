@@ -15,9 +15,29 @@
       </a>
 
       <!-- Log Activity Button -->
-      <a href="/residency-logged-in" class="update-btn-wrapper">
+      <button class="update-btn-wrapper" onclick="document.getElementById('input-panel').style.display = 'block'">
         <div class="update-btn-text">Log Activity</div>
-      </a>
+      </button>
+      <div id="input-panel" class="log-activity-container" style="display:none;">
+        <div class="top-part"> 
+          <span class="close-button" onclick="document.getElementById('input-panel').style.display='none'">x</span>
+        </div>
+        <div class="bottom-part">
+          <form action="/log-activity-input" method = "post"> 
+            <label for="ename">Name of Activity</label>
+            <input type="text" id="ename" name="ename"><br><br>
+
+            <label for="date">Date of Activity</label>
+            <input type="text" id="date" name="date"><br><br>
+
+            <button class="update-btn-wrapper">
+              <div class="update-btn-text">Scan QR</div>
+            </button>
+
+            <input type="submit" value="Confirm">
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Right Column (Name, Date, Table, Buttons) -->
