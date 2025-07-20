@@ -55,7 +55,7 @@ router.get('/log-activity', async (req, res) =>  {
     durationString = `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
   }
 
-  res.render('pages/residency', {
+  res.render('pages/log-activity', {
     firstName: userData?.firstName,
     lastName: userData?.lastName,
     committee: userData?.committee,
