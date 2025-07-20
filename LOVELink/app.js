@@ -109,6 +109,7 @@ app.use('/', require('./routes/profileRoute'));
 app.use('/', require('./routes/editProfileRoute'));
 app.use('/', require('./routes/residencyRoute'));
 app.use('/', require('./routes/organizationActivitiesRoute'));
+app.use('/', require('./routes/activityLogRoute'));
 
 // Server start
 app.listen(PORT, () => {
