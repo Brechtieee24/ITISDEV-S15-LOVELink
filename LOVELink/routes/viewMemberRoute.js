@@ -1,24 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const activitiesDataModule = require('../model/organizationActivitiesController.js');
 const membersDataModule = require('../model/membersController.js');
 
-router.post('/add-event', activitiesDataModule.add_event);
-
-
-router.get('/organization-activities', async (req, res) => {
+router.get('/view-other-members', async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect('/');
 
    try {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);
-        const events = await activitiesDataModule.get_all_activities();
-        console.log(events);
 
-        res.render('pages/view-organization-activities', {
-            title: 'Organization Activities',
+        res.render('pages/view-members', {
+            title: 'View Members',
             styles: '<link rel="stylesheet" href="/css/Activities.css">',
-            events: events,
             showNavBar: true,
             user: userData,
             photo: req.session.user.photo,

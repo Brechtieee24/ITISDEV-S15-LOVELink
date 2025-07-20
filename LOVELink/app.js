@@ -110,6 +110,8 @@ app.use('/', require('./routes/editProfileRoute'));
 app.use('/', require('./routes/residencyRoute'));
 app.use('/', require('./routes/organizationActivitiesRoute'));
 app.use('/', require('./routes/activityLogRoute'));
+app.use('/', require('./routes/viewMemberRoute'));
+
 
 // Server start
 app.listen(PORT, () => {

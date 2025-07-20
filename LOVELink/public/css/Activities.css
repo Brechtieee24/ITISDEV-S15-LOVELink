@@ -17,7 +17,7 @@ body {
 /* For the title */
 .content-container{
     display: grid;
-    grid-template-rows: .5fr 3fr .5fr ;
+    grid-template-rows: .25fr 3fr .49fr ;
     grid-template-areas:
     "title"
     "activities"
