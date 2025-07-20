@@ -201,17 +201,17 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    background-color: #ffffff;
+    background-color: #3b3636;
     border: 2px solid #465D5D;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    padding: 15px;
     z-index: 1000;
     display: grid;
     grid-template-rows: 1fr 3fr;
     grid-template-areas: 
         "top-part"
         "bottom-part"
+        "buttons"
 }
 
 .top-part {
@@ -219,19 +219,22 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    background-color: #465D5D;
 }
 
 .close-button {
     cursor: pointer;
     font-size: 20px;
-    color: #465D5D;
+    color: white;
     padding: 5px 10px;
     border-radius: 50%;
     transition: background-color 0.2s;
 }
 
 .bottom-part {
-    grid-area: bottom-part;
+  grid-area: bottom-part;
+  padding: 15px;
+
 }
 
 .close-button:hover {
@@ -244,19 +247,43 @@
 }
 
 .bottom-part label {
-    color: #465D5D;
-    font-weight: bold;
+    color: white;
+}
+
+.bottom-part p{
+  text-align: center;
+  margin-top: 10px;
+  color: white;
 }
 
 .log-activity-container input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-family: 'Arvo', serif;
+    font-family:'Arvo', serif;
+}
+
+.button-part{
+  grid-area: buttons;
+  display: flex;
+  flex-direction:column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .log-activity-container input[type="submit"] {
     background-color: #465D5D;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.log-activity-container button{
+   background-color: #6c9293;
     color: white;
     border: none;
     padding: 10px;
