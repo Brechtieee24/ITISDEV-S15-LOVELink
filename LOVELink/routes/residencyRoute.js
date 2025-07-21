@@ -179,5 +179,36 @@ router.get('/residency-logged-out', async (req, res) => {
     `});
 });
 
+
+router.get('/api/residency-history', async (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  try {
+    const email = req.session.user.email;
+    const userData = await membersDataModule.getUser(email);
+    const residencyRecords = await residencyDataModule.getMemberResidency(userData._id);
+
+    const formattedRecords = residencyRecords.map(record => {
+      const timeIn = new Date(record.timeIn);
+      const timeOut = new Date(record.timeOut);
+      const durationMinutes = Math.floor((timeOut - timeIn) / (1000 * 60));
+      const hours = Math.floor(durationMinutes / 60);
+      const minutes = durationMinutes % 60;
+
+      return {
+        date: timeIn.toLocaleDateString('en-PH', { timeZone: 'Asia/Manila' }),
+        timeIn: timeIn.toLocaleTimeString('en-PH', { hour12: false, timeZone: 'Asia/Manila' }),
+        timeOut: timeOut.toLocaleTimeString('en-PH', { hour12: false, timeZone: 'Asia/Manila' }),
+        total: `${hours} hrs ${minutes} mins`
+      };
+    });
+
+    res.json(formattedRecords);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
 
