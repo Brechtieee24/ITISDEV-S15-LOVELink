@@ -61,6 +61,11 @@ body {
     gap: 15px;
 }
 
+.member-details img{
+    height: 50px;
+    width: 50px;
+}
+
 .members-container p{
     color: #E5E5E5;
     font-size: 30px;
