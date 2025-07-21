@@ -349,3 +349,84 @@
   }
 
 }
+
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+
+/* Modal Container */
+.modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1200px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: #B0C4BB;
+  border-radius: 10px;
+  padding: 20px;
+  color: #FFFFFF;
+  font-family: 'Arvo', serif;
+  z-index: 1000;
+}
+
+/* Modal header */
+.modal-content h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 28px;
+  color: #FFFFFF;
+}
+
+/* Close Button (X) */
+.close-modal-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+/* Modal Table */
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #6C9293;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.modal-table th {
+  background-color: #465D5D;
+  padding: 15px;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.modal-table td {
+  padding: 15px;
+  font-size: 18px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.modal-table tbody tr:nth-child(even) {
+  background-color: #588282;
+}
+
+.modal-table tbody tr:nth-child(odd) {
+  background-color: #6C9293;
+}
+
+/* Hidden class */
+.hidden {
+  display: none;
+}
