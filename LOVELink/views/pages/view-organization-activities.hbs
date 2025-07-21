@@ -1,14 +1,14 @@
-<div class = view-activities-page>
+<div class = "view-activities-page">
     {{> navbar activePage="home" }}
 
-    <div class = content-container>
-        <div class = title>
+    <div class = "content-container">
+        <div class = "title">
             <h1>COSCA-LOVE's  Activities</h1>
         </div>
 
-        <div class = activities>
+        <div class = "activities">
             {{#each events}}
-                <div class = event-container> 
+                <div class = "event-container"> 
                     <p>{{this.eventName}}</p>
                     <p>{{this.date}}</p>
                 </div>

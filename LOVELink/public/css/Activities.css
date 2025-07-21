@@ -14,7 +14,6 @@ body {
     box-sizing: border-box;
 }
 
-/* For the title */
 .content-container{
     display: grid;
     grid-template-rows: .25fr 3fr .49fr ;
@@ -24,6 +23,7 @@ body {
     "return"
 }
 
+/* For the title */
 .title{
     grid-area: title;
     text-align: center;

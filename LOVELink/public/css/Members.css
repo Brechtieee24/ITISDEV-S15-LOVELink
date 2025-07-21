@@ -1,0 +1,61 @@
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.view-members-container{
+    width: 100%;
+    min-height: 100dvh;
+    padding: 100px 96px 40px 96px;
+    background: #B0C4BB;
+    font-family: 'Arvo', serif;
+    box-sizing: border-box;
+}
+
+.content-container{
+    display: grid;
+    grid-template-rows: .25fr 3fr;
+    grid-template-areas:
+    "title"
+    "member-type"
+}
+
+/* For the title */
+.title{
+    grid-area: title;
+    text-align: center;
+}
+.title h1{
+    color: #465D5D;
+    font-size: 50px;
+}
+
+/* For the buttons */
+.buttons-container{
+    grid-area: member-type;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.buttons-container button{
+    background-color: #465D5D;
+    color: white;
+    width: 300px;        
+    height: 60px;      
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons-container button:hover {
+  background-color: #1f2b24;
+}
