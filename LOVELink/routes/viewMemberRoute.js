@@ -29,17 +29,18 @@ router.get('/specific-office-members', async (req, res) => {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);
         const position = req.query.position; 
+        const members = await membersDataModule.filterByCommittee(position);
 
         res.render('pages/specific-office-members', {
             title: 'View Members',
-            styles: '<link rel="stylesheet" href="/css/Members.css">',
+            styles: '<link rel="stylesheet" href="/css/SpecificMembers.css">',
             showNavBar: true,
             user: userData,
             photo: req.session.user.photo,
-            position: position
-
+            position: position,
+            members: members
         });
-        
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

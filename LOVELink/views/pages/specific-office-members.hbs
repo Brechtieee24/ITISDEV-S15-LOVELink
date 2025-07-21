@@ -1,0 +1,29 @@
+<div class = "view-members-container">
+    {{> navbar activePage="home"}}
+    <div class = "content-container">
+        <div class = "title">
+            <h1>{{this.position}}</h1>
+        </div>
+
+        <div class = "members">
+            {{!-- To add here is the when the button is clicked it will redirect it to the user's profile page --}}
+            {{#each members}}
+                <div class = "members-container"> 
+                    {{!-- No photo currently in the schema --}}
+                    <img class="member-profile-picture" src="{{this.photo}}" alt="Avatar" />
+                    <p>{{this.firstName}} {{this.lastName}}</p>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class = "buttons-container">
+            <a href="/home" class="return-button">Return</a>
+
+            {{#if user.isOfficer}}
+                <a href="/specific-office-members" class="filter-button">Filter Members</a>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+
