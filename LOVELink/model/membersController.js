@@ -62,9 +62,24 @@ async function filterByCommittee(committeeName) {
     }
 }
 
+async function addTotalActivityTime(email,duration){
+    try {
+        const user = await Schema.member.findOne({email}).exec()
+
+        if (!user) return null;
+        user.totalResidencyTime += duration;
+        await user.save();
+        return user;
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        return null;
+    }
+}
+
 module.exports = {
     getUser,
     updateAboutInfo,
     userAboutInfo,
-    filterByCommittee
+    filterByCommittee,
+    addTotalActivityTime
 };

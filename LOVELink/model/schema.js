@@ -29,6 +29,11 @@ const membersSchema = new Schema({
         default: 'Hi!'
     },
 
+    totalResidencyTime: {
+        type: String,
+        default: '00:00:00'
+    },
+
     lastLogin: Date // update erd
 });
 
