@@ -29,9 +29,14 @@ const membersSchema = new Schema({
         default: 'Hi!'
     },
 
-    totalResidencyTime: {
+    totalResidencyTime: {   // This is in milisecond
+        type: Number,
+        default: '0'
+    },
+
+    formattedResidencyTime: {
         type: String,
-        default: '00:00:00'
+        defualt: "00:00:00"
     },
 
     lastLogin: Date // update erd

@@ -65,12 +65,37 @@ async function filterByCommittee(committeeName) {
 async function addTotalActivityTime(email,duration){
     try {
         const user = await Schema.member.findOne({email}).exec()
-
         if (!user) return null;
+
         user.totalResidencyTime += duration;
         await user.save();
         return user;
     } catch (err) {
+        console.error("Error fetching user:", err);
+        return null;
+    }
+}
+
+async function formatTotalActivityTime(email){
+    try {
+        const user = await Schema.member.findOne({email}).exec()
+        if (!user) return null;
+
+        const totalSeconds = Math.floor(user.totalResidencyTime / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        const pad = (num) => String(num).padStart(2, '0');
+
+        const formattedDate = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+
+        user.formattedResidencyTime = formattedDate;
+
+        await user.save();
+        
+        return user
+    } catch (err){
         console.error("Error fetching user:", err);
         return null;
     }
@@ -81,5 +106,6 @@ module.exports = {
     updateAboutInfo,
     userAboutInfo,
     filterByCommittee,
-    addTotalActivityTime
+    addTotalActivityTime,
+    formatTotalActivityTime
 };

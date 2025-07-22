@@ -33,24 +33,7 @@ async function getEventsOfUser(memberId) {
     }
 }
 
-async function calculateDuration(timeIn,timeOut){
-
-    const timeIn = new Date(timeIn);
-    const timeOut = new Date(timeOut);
-    difference = timeIn - timeOut;
-
-    const totalSeconds = Math.floor(difference / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    const pad = (num) => String(num).padStart(2, '0');
-
-    return pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-}
-
 module.exports = {
    addEventParticipation,
    getEventsOfUser,
-   calculateDuration,
 };
