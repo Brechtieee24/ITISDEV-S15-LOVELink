@@ -26,7 +26,23 @@
             
             {{!-- Filter to what? --}}
             {{#if user.isOfficer}}
-                <a href="/specific-office-members" class="filter-button">Filter Members</a>
+            <button class="filter-button" onclick="document.getElementById('input-panel').style.display = 'block'">
+                Filter Members
+            </button>
+            <div id="input-panel" class="add-filter-container" style="display:none;">
+                <div class="top-part"> 
+                    <span class="close-button" onclick="document.getElementById('input-panel').style.display='none'">x</span>
+                </div>
+                <div class="bottom-part">
+                    <form action="/filtered-office-members" method="get">
+                        <label for="hour">  Minimum Residency Hours:</label>
+                        <input type="number" id="hour" name="hour" placeholder="e.g., 100" min="0">
+                        <input type="hidden" name="position" value="{{position}}">
+
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
+            </div>
             {{/if}}
         </div>
     </div>

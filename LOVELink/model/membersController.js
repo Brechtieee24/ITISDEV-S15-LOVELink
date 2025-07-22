@@ -101,11 +101,24 @@ async function formatTotalActivityTime(email){
     }
 }
 
+async function filterByCommitteeandHour(committeeName, hours) {
+    milliseconds = hours * 60 * 60 * 1000
+
+    try {
+        const members = await Schema.member.find({committee: committeeName, totalResidencyTime: { $gte: milliseconds }}).lean();
+        return members;
+    } catch (error) {
+        console.error('Error fetching members by committee:', error);
+        return null;
+    }
+}
+
 module.exports = {
     getUser,
     updateAboutInfo,
     userAboutInfo,
     filterByCommittee,
     addTotalActivityTime,
-    formatTotalActivityTime
+    formatTotalActivityTime,
+    filterByCommitteeandHour
 };

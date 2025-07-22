@@ -47,4 +47,32 @@ router.get('/specific-office-members', async (req, res) => {
     }
 });
 
+
+router.get('/filtered-office-members', async (req, res) => {
+    if (!req.isAuthenticated()) return res.redirect('/');
+
+   try {
+        const email = req.session.user.email;; // update to user session
+        const userData = await membersDataModule.getUser(email);
+        const position = req.query.position; 
+        const filterHour = req.query.hour;
+
+        const members = await membersDataModule.filterByCommitteeandHour(position,filterHour);
+
+        res.render('pages/specific-office-members', {
+            title: 'View Members',
+            styles: '<link rel="stylesheet" href="/css/SpecificMembers.css">',
+            showNavBar: true,
+            user: userData,
+            photo: req.session.user.photo,
+            position: position,
+            members: members
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 module.exports = router;
