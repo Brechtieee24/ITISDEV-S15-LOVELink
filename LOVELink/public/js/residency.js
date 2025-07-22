@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('residency-history-btn');
-  const modal = document.getElementById('residency-history-modal');
   const overlay = document.getElementById('modal-overlay');
-  const closeModalBtn = document.querySelector('.close-modal-btn');
-  const tableBody = document.getElementById('modal-table-body');
+
+  // residency modal
+  const residencyBtn = document.getElementById('residency-history-btn');
+  const residencyModal = document.getElementById('residency-history-modal');
+  const residencyTableBody = document.getElementById('modal-table-body');
 
   async function fetchResidencyHistory() {
     try {
@@ -11,11 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error('Network response was not ok');
       const data = await res.json();
 
-      console.log("Data from backend:", data);
-      
-      tableBody.innerHTML = '';
+      residencyTableBody.innerHTML = '';
       if (data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4">No residency history found.</td></tr>`;
+        residencyTableBody.innerHTML = `<tr><td colspan="4">No residency history found.</td></tr>`;
       } else {
         data.forEach(record => {
           const row = `
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <td>${record.total}</td>
             </tr>
           `;
-          tableBody.innerHTML += row;
+          residencyTableBody.innerHTML += row;
         });
       }
     } catch (error) {
@@ -34,19 +33,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  btn.onclick = async () => {
+  residencyBtn.onclick = async () => {
     await fetchResidencyHistory();
-    modal.classList.remove('hidden');
+    residencyModal.classList.remove('hidden');
     overlay.classList.remove('hidden');
   };
 
-  closeModalBtn.onclick = () => {
-    modal.classList.add('hidden');
-    overlay.classList.add('hidden');
+  // activity modal
+  const activityBtn = document.getElementById('activity-history-btn');
+  const activityModal = document.getElementById('activity-history-modal');
+  const activityTableBody = document.getElementById('activity-modal-table-body');
+
+  async function fetchActivityHistory() {
+    try {
+      const res = await fetch('/api/activity-history');
+      if (!res.ok) throw new Error('Network response was not ok');
+      const data = await res.json();
+
+      activityTableBody.innerHTML = '';
+      if (data.length === 0) {
+        activityTableBody.innerHTML = `<tr><td colspan="3">No activity history found.</td></tr>`;
+      } else {
+        data.forEach(record => {
+          const row = `
+            <tr>
+              <td>${record.name}</td>
+              <td>${record.date}</td>
+              <td>${record.hours}</td>
+            </tr>
+          `;
+          activityTableBody.innerHTML += row;
+        });
+      }
+    } catch (err) {
+      console.error('Failed to fetch activity history:', err);
+    }
+  }
+
+  activityBtn.onclick = async () => {
+    await fetchActivityHistory();
+    activityModal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
   };
 
+  // close
+  const closeButtons = document.querySelectorAll('.close-modal-btn');
+  const modals = document.querySelectorAll('.modal');
+
+  closeButtons.forEach((btn) => {
+    btn.onclick = () => {
+      modals.forEach((m) => m.classList.add('hidden'));
+      overlay.classList.add('hidden');
+    };
+  });
+
   overlay.onclick = () => {
-    modal.classList.add('hidden');
+    modals.forEach((m) => m.classList.add('hidden'));
     overlay.classList.add('hidden');
   };
 });
