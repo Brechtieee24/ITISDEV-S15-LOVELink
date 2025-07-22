@@ -88,7 +88,7 @@ body {
 .add-event-button {
     display: inline-block;
     width: 300px;
-    background-color: #465D5D;
+    background-color: #fa4736;
     color: white;
     text-decoration: none;
     padding: 12px 30px;
@@ -99,7 +99,7 @@ body {
 }
 
 .add-event-button:hover {
-    background-color: #334444;
+    background-color: #e43e2f;
 }
 
 

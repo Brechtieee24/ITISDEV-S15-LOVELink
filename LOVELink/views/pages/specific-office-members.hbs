@@ -9,13 +9,11 @@
             {{!-- To add here is the when the button is clicked it will redirect it to the user's profile page --}}
             {{#each members}}
                 <div class = "members-container"> 
-                    {{!-- No photo currently in the schema --}}
                      <div class="member-details">
                         <img class="member-profile-picture" src="/images/user.png" alt="Avatar" />
                         <p>{{this.firstName}} {{this.lastName}}</p>
                     </div>
 
-                    {{!-- Not sure what time to get here --}}
                     {{#if ../user.isOfficer}}
                         <p>{{this.formattedResidencyTime}}</p>
                     {{/if}}
