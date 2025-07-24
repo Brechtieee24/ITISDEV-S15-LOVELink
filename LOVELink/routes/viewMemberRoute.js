@@ -53,7 +53,6 @@ router.get('/specific-office-members', async (req, res) => {
     }
 });
 
-
 // view filtered members
 router.get('/filtered-office-members', async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect('/');
@@ -61,10 +60,14 @@ router.get('/filtered-office-members', async (req, res) => {
    try {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);
-        const committeeName = req.query.committeeName; 
+        const committeeName = req.query.position; 
         const filterHour = req.query.hour;
 
-        const members = await membersDataModule.filterByCommitteeandHour(committeeName,filterHour);
+        console.log(filterHour, " ", committeeName);
+
+        const members = await membersDataModule.filterByCommitteeAndHour(committeeName,filterHour);
+        console.log("filtered members:", members);
+
 
         res.render('pages/specific-office-members', {
             title: 'View Members',

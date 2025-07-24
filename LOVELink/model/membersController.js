@@ -105,18 +105,23 @@ async function updateFormattedResidency(committee) {
   }
 }
 
+// return filtered members based on the set min hours
+async function filterByCommitteeAndHour(committeeName, hours) {
+  const seconds = hours * 60 * 60;
 
-async function filterByCommitteeandHour(committeeName, hours) {
-    milliseconds = hours * 60 * 60 * 1000
+  try {
+    const members = await Schema.member.find({
+      committee: committeeName,
+      totalResidencyTime: { $gte: seconds }
+    }).lean();
 
-    try {
-        const members = await Schema.member.find({committee: committeeName, totalResidencyTime: { $gte: milliseconds }}).lean();
-        return members;
-    } catch (error) {
-        console.error('Error fetching members by committee:', error);
-        return null;
-    }
+    return members;
+  } catch (error) {
+    console.error('Error fetching members by committee and hour:', error);
+    return null;
+  }
 }
+
 
 module.exports = {
     getUser,
@@ -124,6 +129,6 @@ module.exports = {
     userAboutInfo,
     getUserById,
     filterByCommittee,
-    filterByCommitteeandHour,
-    updateFormattedResidency
+    updateFormattedResidency,
+    filterByCommitteeAndHour
 };

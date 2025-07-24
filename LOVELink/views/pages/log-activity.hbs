@@ -18,29 +18,33 @@
       <button class="update-btn-wrapper" onclick="document.getElementById('input-panel').style.display = 'block'">
         <div class="update-btn-text">Log Activity</div>
       </button>
+     
+
       <div id="input-panel" class="log-activity-container" style="display:none;">
         <div class="top-part"> 
-          <span class="close-button" onclick="document.getElementById('input-panel').style.display='none'">x</span>
+          <span class="close-button" onclick="closePanel()">x</span>
         </div>
         <div class="bottom-part">
-          <form action="/log-activity-input" method = "post"> 
+          <form action="/log-activity-input" method="post"> 
             <label for="ename">Name of Activity</label>
             <input type="text" id="ename" name="ename"><br><br>
 
             <label for="date">Date of Activity</label>
             <input type="text" id="date" name="date">
 
-            <p> Scanned Participants: 50</p>
-        <div class = "button-part"> 
-              <button class="scan-qr-button">
-                Scan QR
-              </button>
+            <p>Scanned Participants: <span id="scanned-count">0</span></p>
+
+            <div class="button-part"> 
+              <button id="scanQrBtn" type="button">Scan QR</button>
+              <button id="stopQrBtn" type="button" style="display:none;">Stop Scan</button>
+              <div id="qr-video" style="width: 300px; margin-top: 10px;"></div>
 
               <input type="submit" value="Confirm">
-          </div>
+            </div>
           </form>
         </div>
       </div>
+
     </div>
 
     <!-- Right Column (Name, Date, Table, Buttons) -->
@@ -95,4 +99,65 @@
 
   // Then update every second
   setInterval(updateTimestamp, 1000);
+
   </script>
+
+<!-- Include this somewhere in your .hbs -->
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+  let html5QrCode;
+  let scannedCount = 0;
+  const scannedSet = new Set();
+
+  document.getElementById('scanQrBtn').addEventListener('click', async () => {
+    const videoEl = document.getElementById('qr-video');
+    html5QrCode = new Html5Qrcode("qr-video");
+
+    const devices = await Html5Qrcode.getCameras();
+    const cameraId = devices[0]?.id;
+
+    if (!cameraId) {
+      alert("No camera found.");
+      return;
+    }
+
+    document.getElementById('stopQrBtn').style.display = 'inline-block';
+
+    html5QrCode.start(
+      cameraId,
+      { fps: 10, qrbox: 250 },
+      async (decodedText, decodedResult) => {
+        if (!scannedSet.has(decodedText)) {
+          scannedSet.add(decodedText);
+          scannedCount++;
+          document.getElementById('scanned-count').textContent = scannedCount;
+
+          // Save to session
+          await fetch('/store-qr', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: decodedText })
+          });
+        }
+      },
+      err => {}
+    );
+  });
+
+  document.getElementById('stopQrBtn').addEventListener('click', async () => {
+    if (html5QrCode) {
+      await html5QrCode.stop();
+      html5QrCode.clear();
+    }
+    document.getElementById('stopQrBtn').style.display = 'none';
+  });
+
+  function closePanel() {
+    document.getElementById('input-panel').style.display = 'none';
+    document.getElementById('stopQrBtn').click(); // Stop QR if open
+  }
+</script>
+
+
+
+

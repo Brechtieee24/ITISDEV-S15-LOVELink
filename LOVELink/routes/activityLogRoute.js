@@ -54,6 +54,8 @@ router.get('/log-activity', async (req, res) =>  {
     durationString = `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
   }
 
+    req.session.scannedParticipants = []; // clear qr data
+
   res.render('pages/log-activity', {
     firstName: userData?.firstName,
     lastName: userData?.lastName,
@@ -69,113 +71,27 @@ router.get('/log-activity', async (req, res) =>  {
   });
 });
 
-
-//Residency Logged In
-// include session for temporary storage of time in
-router.get('/residency-logged-in', async (req, res) => {
-  
-  if (!req.session.user) return res.redirect('/');
-  const email = req.session.user.email; // update to user session
-  const userData = await membersDataModule.getUser(email);
-  const qrDataUrl = await QRCode.toDataURL(userData._id.toString()); // qr code generator
-  
-  const timeIn = new Date();
-
-  if (req.session.timeIn == null) {
-    req.session.timeIn = timeIn;
+router.post('/store-qr', (req, res) => {
+  const { data } = req.body;
+  if (!req.session.scannedQRs) req.session.scannedQRs = [];
+  if (!req.session.scannedQRs.includes(data)) {
+    req.session.scannedQRs.push(data);
   }
-
-
-  const formattedTimeIn = new Date(req.session.timeIn).toLocaleString('en-PH', {
-  timeZone: 'Asia/Manila',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hour12: false
+  res.sendStatus(200);
 });
 
-  res.render('pages/residency-logged-in', {
-    title: 'Residency Logged In', 
-    activePage: 'Residency',
-    firstName: userData?.firstName,
-    lastName: userData?.lastName,
-    committee: userData?.committee,
-    qrCode: qrDataUrl, 
-    photo: req.session.user.photo,
-    timeIn: formattedTimeIn,
-    showNavBar: true,
-    styles: `
-      <link rel="stylesheet" href="/css/Profile.css">
-      <link rel="stylesheet" href="/css/Residency.css">
-    `
-  });
+
+router.post('/log-activity-input', (req, res) => {
+  const { ename, date } = req.body;
+  const scannedData = req.session.scannedParticipants || [];
+
+  console.log("Activity:", ename);
+  console.log("Date:", date);
+  console.log("Scanned Participants:", scannedData);
+
+  res.send('Activity successfully logged!');
 });
 
-// log out route
-router.get('/residency-logged-out', async (req, res) => {
-  
-  if (!req.session.user) return res.redirect('/');
-  const email = req.session.user.email; // update to user session
-  const userData = await membersDataModule.getUser(email);
-  const qrDataUrl = await QRCode.toDataURL(userData._id.toString()); // qr code generator
-  
-
-  const residencyValue = await residencyDataModule.createNewResidency(req.session.timeIn, new Date(), userData._id)
-  console.log(residencyValue);
-
-  const latestResidency = await residencyDataModule.getLatestMemberResidency(userData?._id); 
-  const formattedTimeIn = new Date(latestResidency.timeIn).toLocaleString('en-PH', {
-  timeZone: 'Asia/Manila',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hour12: false
-});
-
-  const formattedTimeOut = new Date(latestResidency.timeOut).toLocaleString('en-PH', {
-    timeZone: 'Asia/Manila',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  });
-
-  // Calculate duration
-  const timeIn = new Date(latestResidency.timeIn);
-  const timeOut = new Date(latestResidency.timeOut);
-
-  const diffMs = timeOut - timeIn;
-  const totalMinutes = Math.floor(diffMs / (1000 * 60));
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-
-  const durationString = `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
-
-  delete req.session.timeIn; // clear upon save
-
-  res.render('pages/residency', {
-  firstName: userData?.firstName,
-  lastName: userData?.lastName,
-  committee: userData?.committee,
-  latestTimeIn: formattedTimeIn,
-  latestTimeOut: formattedTimeOut,
-  photo: req.session.user.photo,
-  duration: durationString,
-  qrCode: qrDataUrl,
-  styles: `
-      <link rel="stylesheet" href="/css/Profile.css">
-      <link rel="stylesheet" href="/css/Residency.css">
-    `});
-});
 
 module.exports = router;
 
