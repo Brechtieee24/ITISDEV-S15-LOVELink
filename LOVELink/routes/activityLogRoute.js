@@ -111,8 +111,6 @@ router.post('/log-activity-input', async (req, res) => {
 
   // Clear the session data after submission (optional, but recommended)
   req.session.scannedQRs = [];
-
-  
   req.session.successMessage = "Activity and participants successfully logged!";
 
   // Redirect
