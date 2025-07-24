@@ -14,7 +14,6 @@ router.get('/log-activity', async (req, res) =>  {
 
   const email = req.session.user.email;
   const userData = await membersDataModule.getUser(email);
-  const qrDataUrl = await QRCode.toDataURL(userData._id.toString());
   const latestResidency = await residencyDataModule.getLatestMemberResidency(userData?._id);
 
   let formattedTimeIn = 'N/A';

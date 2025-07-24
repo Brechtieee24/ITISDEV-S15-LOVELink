@@ -36,7 +36,7 @@ const membersSchema = new Schema({
 
     formattedResidencyTime: {
         type: String,
-        defualt: "00:00:00"
+        default: "00:00:00"
     },
 
     lastLogin: Date // update erd

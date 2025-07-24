@@ -3,6 +3,7 @@ const router = express.Router();
 const QRCode = require('qrcode');
 const membersDataModule = require('../model/membersController.js');
 const residencyDataModule = require('../model/residencyHoursController.js');
+const activitiesDataModule = require('../model/activityParticipationsController');
 
 // Residency Landing
 router.get('/residency', async (req, res) =>  {
@@ -182,7 +183,7 @@ router.get('/residency-logged-out', async (req, res) => {
     `});
 });
 
-
+// residency history table
 router.get('/api/residency-history', async (req, res) => {
   if (!req.session.user) return res.status(401).json({ error: 'Unauthorized' });
 
@@ -192,21 +193,52 @@ router.get('/api/residency-history', async (req, res) => {
     const residencyRecords = await residencyDataModule.getMemberResidency(userData._id);
 
     const formattedRecords = residencyRecords.map(record => {
-      const timeIn = new Date(record.timeIn);
-      const timeOut = new Date(record.timeOut);
-      const durationMinutes = Math.floor((timeOut - timeIn) / (1000 * 60));
-      const hours = Math.floor(durationMinutes / 60);
-      const minutes = durationMinutes % 60;
+    const timeIn = new Date(record.timeIn);
+    const timeOut = new Date(record.timeOut);
+    const durationMs = timeOut - timeIn;
 
-      return {
-        date: timeIn.toLocaleDateString('en-PH', { timeZone: 'Asia/Manila' }),
-        timeIn: timeIn.toLocaleTimeString('en-PH', { hour12: false, timeZone: 'Asia/Manila' }),
-        timeOut: timeOut.toLocaleTimeString('en-PH', { hour12: false, timeZone: 'Asia/Manila' }),
-        total: `${hours} hrs ${minutes} mins`
-      };
-    });
+    const totalSeconds = Math.floor(durationMs / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return {
+      date: timeIn.toLocaleDateString('en-PH', { timeZone: 'Asia/Manila' }),
+      timeIn: timeIn.toLocaleTimeString('en-PH', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Manila'
+      }),
+      timeOut: timeOut.toLocaleTimeString('en-PH', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Manila'
+      }),
+      total: `${hours} hrs ${minutes} mins ${seconds} secs`
+    };
+  });
 
     res.json(formattedRecords);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// activity history table
+router.get('/api/activity-history', async (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  try {
+    const email = req.session.user.email;
+    const userData = await membersDataModule.getUser(email);
+    const activityRecords = await activitiesDataModule.getEventsOfUser(userData?._id);
+
+    res.json(activityRecords);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

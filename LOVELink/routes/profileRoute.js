@@ -35,10 +35,21 @@ router.get('/profile/', async (req, res) => {
 });
 
 // Other profile page
-router.get('/others-profile', async (req, res) => {
+router.get('/view-profile/:id', async (req, res) => {
    if (!req.isAuthenticated()) return res.redirect('/');
+  
+  const id = req.params.id;
+  const userData = await membersDataModule.getUserById(id);
    
-  res.render('pages/others-profile', {styles: '<link rel="stylesheet" href="/css/Profile.css">'}); 
+  res.render('pages/others-profile', {
+    styles: '<link rel="stylesheet" href="/css/Profile.css">',
+    title: `${userData.firstName} ${userData.lastName}`,
+    firstName: userData?.firstName,
+    lastName: userData?.lastName,
+    committee: userData?.committee,
+    aboutInfo: userData?.aboutInfo,
+    photo: req.session.user.photo
+  }); 
 });
 
 module.exports = router;

@@ -42,9 +42,61 @@
         </div>
       </div>
 
+      <!-- History Buttons -->
+      <div class="history-buttons center-buttons">
+        <div id="residency-history-btn" class="secondary-btn">Residency History</div>
+        <div id="activity-history-btn" class="secondary-btn">Activity History</div>
+      </div>
+
     </div>
   </div>
 </div>
+
+<!-- Modal Structure (hidden initially) -->
+<div id="residency-history-modal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-modal-btn">&times;</span>
+    <h2>Residency History</h2>
+    <table class="modal-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time In</th>
+          <th>Time Out</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="modal-table-body">
+        <!-- Filled by JS -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Activity History Modal -->
+<div id="activity-history-modal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-modal-btn activity-close-btn">&times;</span>
+    <h2>Activity History</h2>
+    <table class="modal-table">
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="activity-modal-table-body">
+        <!-- Filled by JS -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal overlay -->
+<div id="modal-overlay" class="modal-overlay hidden"></div>
+
+<!-- Include the JavaScript at the end -->
+<script src="/js/residency.js"></script>
 
  <script>
   function updateTimestamp() {

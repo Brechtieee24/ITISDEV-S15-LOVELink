@@ -21,6 +21,24 @@ async function getUser(userEmail){
 
 }
 
+async function getUserById(memberId){
+    try {
+        const user = await Schema.member.findOne({ _id: memberId }).exec();
+        console.log(user);
+        if (!user) {
+            console.log('No User with object id found!');
+            return false;
+        }
+
+        return user;
+
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        return null;
+    }
+
+}
+
 async function updateAboutInfo(email, aboutInfo) {
     try {
         const user = await Schema.member.findOne({ email }).exec();
@@ -117,6 +135,7 @@ module.exports = {
     getUser,
     updateAboutInfo,
     userAboutInfo,
+    getUserById,
     filterByCommittee,
     addTotalActivityTime,
     formatTotalActivityTime,

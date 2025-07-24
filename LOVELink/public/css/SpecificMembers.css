@@ -197,7 +197,11 @@ body {
     background-color: #334444;
 }
 
-
+.members-container-link {
+  text-decoration: none;      
+  color: inherit;             
+  display: block;             
+}
 
 
 

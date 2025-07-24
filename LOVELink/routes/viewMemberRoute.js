@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const membersDataModule = require('../model/membersController.js');
+const residencyDataModule = require('../model/residencyHoursController.js');
 
 router.get('/view-other-members', async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect('/');
@@ -29,6 +30,8 @@ router.get('/specific-office-members', async (req, res) => {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);
         const position = req.query.position; 
+    
+
         const members = await membersDataModule.filterByCommittee(position);
 
         res.render('pages/specific-office-members', {

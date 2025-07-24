@@ -5,24 +5,26 @@
             <h1>{{this.position}}</h1>
         </div>
 
-        <div class = "members">
-            {{!-- To add here is the when the button is clicked it will redirect it to the user's profile page --}}
+        <div class="members">
             {{#each members}}
-                <div class = "members-container"> 
-                     <div class="member-details">
-                        <img class="member-profile-picture" src="/images/user.png" alt="Avatar" />
-                        <p>{{this.firstName}} {{this.lastName}}</p>
+                <a href="/view-profile/{{this._id}}" class="members-container-link">
+                <div class="members-container"> 
+                    <div class="member-details">
+                    <img class="member-profile-picture" src="/images/user.png" alt="Avatar" />
+                    <p>{{this.firstName}} {{this.lastName}}</p>
                     </div>
 
                     {{#if ../user.isOfficer}}
-                        <p>{{this.formattedResidencyTime}}</p>
+                    <p>{{this.formattedResidencyTime}}</p>
                     {{/if}}
                 </div>
+                </a>
             {{/each}}
         </div>
 
+
         <div class = "buttons-container">
-            <a href="/home" class="return-button">Return</a>
+            <a href="/view-other-members" class="return-button">Return</a>
             
             {{!-- Filter to what? --}}
             {{#if user.isOfficer}}

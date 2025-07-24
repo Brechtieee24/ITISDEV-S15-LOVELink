@@ -75,6 +75,7 @@ passport.use(new GoogleStrategy({
 }));
 
 
+
 // Persist session data after Passport handles user
 app.use((req, res, next) => {
   if (req.user && !req.session.user) {

@@ -57,9 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
         data.forEach(record => {
           const row = `
             <tr>
-              <td>${record.name}</td>
+              <td>${record.eventName}</td>
               <td>${record.date}</td>
-              <td>${record.hours}</td>
             </tr>
           `;
           activityTableBody.innerHTML += row;
