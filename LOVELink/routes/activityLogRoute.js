@@ -3,9 +3,13 @@ const router = express.Router();
 const QRCode = require('qrcode');
 const membersDataModule = require('../model/membersController.js');
 const residencyDataModule = require('../model/residencyHoursController.js');
+const participationDataModule = require('../model/activityParticipationsController.js');
 
 // Residency Landing
 router.get('/log-activity', async (req, res) =>  {
+  const successMessage = req.session.successMessage || null;
+  delete req.session.successMessage;
+
   if (!req.session.user) return res.redirect('/');
 
   if (req.session.timeIn) {
@@ -64,6 +68,7 @@ router.get('/log-activity', async (req, res) =>  {
     latestTimeOut: formattedTimeOut,
     duration: durationString,
     photo: req.session.user.photo,
+    successMessage,
     styles: `
       <link rel="stylesheet" href="/css/Profile.css">
       <link rel="stylesheet" href="/css/Residency.css">
@@ -71,26 +76,52 @@ router.get('/log-activity', async (req, res) =>  {
   });
 });
 
+
+// QR Related Routes
+// Store each unique QR scan in session
 router.post('/store-qr', (req, res) => {
   const { data } = req.body;
-  if (!req.session.scannedQRs) req.session.scannedQRs = [];
+
+  if (!req.session.scannedQRs) {
+    req.session.scannedQRs = [];
+  }
+
   if (!req.session.scannedQRs.includes(data)) {
     req.session.scannedQRs.push(data);
   }
+
   res.sendStatus(200);
 });
 
+// Submit the activity and scanned participants
+router.post('/log-activity-input', async (req, res) => {
+  const { eid } = req.body;
+  const scannedData = req.session.scannedQRs || [];
 
-router.post('/log-activity-input', (req, res) => {
-  const { ename, date } = req.body;
-  const scannedData = req.session.scannedParticipants || [];
-
-  console.log("Activity:", ename);
-  console.log("Date:", date);
+  console.log("Event ID:", eid);
   console.log("Scanned Participants:", scannedData);
 
-  res.send('Activity successfully logged!');
+  for (const memberId of scannedData) {
+    try {
+      await participationDataModule.addEventParticipation(memberId, eid);
+    } catch (err) {
+      console.error(`Error adding participation for ${memberId}:`, err);
+    }
+  }
+
+  // Clear the session data after submission (optional, but recommended)
+  req.session.scannedQRs = [];
+
+  
+  req.session.successMessage = "Activity and participants successfully logged!";
+
+  // Redirect
+  res.redirect('/log-activity');
+
+
+  
 });
+
 
 
 module.exports = router;

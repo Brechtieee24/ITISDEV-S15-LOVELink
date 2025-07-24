@@ -19,18 +19,20 @@
         <div class="update-btn-text">Log Activity</div>
       </button>
      
+     {{#if successMessage}}
+        <div style="background-color: #d4edda; padding: 10px; border-radius: 5px; color: #155724; margin-bottom: 15px;">
+           {{successMessage}}
+        </div>
+      {{/if}}
 
       <div id="input-panel" class="log-activity-container" style="display:none;">
         <div class="top-part"> 
-          <span class="close-button" onclick="closePanel()">x</span>
+          <button type="button" class="close-button" onclick="closePanel()">×</button>
         </div>
         <div class="bottom-part">
           <form action="/log-activity-input" method="post"> 
-            <label for="ename">Name of Activity</label>
-            <input type="text" id="ename" name="ename"><br><br>
-
-            <label for="date">Date of Activity</label>
-            <input type="text" id="date" name="date">
+            <label for="eid">Event ID</label>
+            <input type="text" id="eid" name="eid" required><br><br>
 
             <p>Scanned Participants: <span id="scanned-count">0</span></p>
 
@@ -44,6 +46,8 @@
           </form>
         </div>
       </div>
+
+
 
     </div>
 
@@ -102,14 +106,14 @@
 
   </script>
 
-<!-- Include this somewhere in your .hbs -->
+<!-- QR Related Scripts -->
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
   let html5QrCode;
   let scannedCount = 0;
   const scannedSet = new Set();
 
-  document.getElementById('scanQrBtn').addEventListener('click', async () => {
+  async function startQRScanner() {
     const videoEl = document.getElementById('qr-video');
     html5QrCode = new Html5Qrcode("qr-video");
 
@@ -121,6 +125,7 @@
       return;
     }
 
+    document.getElementById('scanQrBtn').disabled = true;
     document.getElementById('stopQrBtn').style.display = 'inline-block';
 
     html5QrCode.start(
@@ -132,6 +137,14 @@
           scannedCount++;
           document.getElementById('scanned-count').textContent = scannedCount;
 
+          // Visual feedback
+          const flash = document.createElement('div');
+          flash.textContent = "✔ Scan successful!";
+          flash.style.color = "green";
+          flash.style.marginTop = "5px";
+          videoEl.after(flash);
+          setTimeout(() => flash.remove(), 1500);
+
           // Save to session
           await fetch('/store-qr', {
             method: 'POST',
@@ -140,21 +153,41 @@
           });
         }
       },
-      err => {}
+      err => {
+        console.warn("QR scan error", err);
+      }
     );
-  });
+  }
 
-  document.getElementById('stopQrBtn').addEventListener('click', async () => {
+  async function stopQRScanner() {
     if (html5QrCode) {
       await html5QrCode.stop();
       html5QrCode.clear();
     }
     document.getElementById('stopQrBtn').style.display = 'none';
-  });
+    document.getElementById('scanQrBtn').disabled = false;
+  }
+
+  document.getElementById('scanQrBtn').addEventListener('click', startQRScanner);
+  document.getElementById('stopQrBtn').addEventListener('click', stopQRScanner);
 
   function closePanel() {
     document.getElementById('input-panel').style.display = 'none';
-    document.getElementById('stopQrBtn').click(); // Stop QR if open
+    stopQRScanner();
+    resetScannerState();
+  }
+
+  function openPanel() {
+    resetScannerState();
+    document.getElementById('input-panel').style.display = 'block';
+  }
+
+  function resetScannerState() {
+    scannedCount = 0;
+    scannedSet.clear();
+    document.getElementById('scanned-count').textContent = scannedCount;
+    document.getElementById('scanQrBtn').disabled = false;
+    document.getElementById('stopQrBtn').style.display = 'none';
   }
 </script>
 

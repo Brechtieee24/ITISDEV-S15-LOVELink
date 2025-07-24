@@ -17,9 +17,13 @@
 
       <div class="return">
          {{#if user.isOfficer}}
-            <button class="add-event-button" onclick="document.getElementById('input-panel').style.display = 'block'">
+            <button class="add-event-button" onclick="window.location.href='/log-activity'">
                 Add Event
             </button>
+
+            
+            
+            <!-- AS NEEDED
             <div id="input-panel" class="add-event-container" style="display:none;">
                 <div class="top-part"> 
                     <span class="close-button" onclick="document.getElementById('input-panel').style.display='none'">x</span>
@@ -35,7 +39,9 @@
                         <input type="submit" value="Submit">
                     </form>
                 </div>
-            </div>
+            </div> -->
+
+
         {{/if}}
         <a href="/home" class="return-button">Return</a>
       </div>
