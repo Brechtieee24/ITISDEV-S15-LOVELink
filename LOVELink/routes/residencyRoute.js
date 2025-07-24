@@ -163,8 +163,8 @@ router.get('/residency-logged-out', async (req, res) => {
 
   const durationString = `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
 
-  await membersDataModule.addTotalActivityTime(email, diffMs); 
-  await membersDataModule.formatTotalActivityTime(email);
+  await residencyDataModule.updateTotalResidencyForCommittee(userData.committee);
+  await membersDataModule.updateFormattedResidency(userData.committee);
 
   delete req.session.timeIn; // clear upon save
 

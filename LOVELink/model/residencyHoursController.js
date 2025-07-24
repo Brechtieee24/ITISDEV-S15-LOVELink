@@ -1,4 +1,5 @@
 const Schema = require('./schema');
+const membersDataModule = require('./membersController'); 
 
 async function createNewResidency(timeIn, timeOut, memberId) { // store in express route the time in before creating this object
     try {
@@ -46,9 +47,59 @@ async function getLatestMemberResidency(memberId) {
     }
 }
 
+// sum of all residency hours 
+async function computeTotalResidency(memberId) {
+  try {
+    const records = await Schema.residencyhour.find({ memberId });
+
+    let totalMilliseconds = 0;
+
+    for (const record of records) {
+      const timeIn = new Date(record.timeIn);
+      const timeOut = new Date(record.timeOut);
+      totalMilliseconds += timeOut - timeIn;
+    }
+
+    return totalMilliseconds; 
+  } catch (err) {
+    console.error('Error computing total residency time:', err);
+    throw err;
+  }
+}
+
+async function updateTotalResidencyForCommittee(committee) {
+  try {
+    const members = await membersDataModule.filterByCommittee(committee);
+
+    for (const member of members) {
+      const records = await Schema.residencyhour.find({ memberId: member._id });
+
+      let totalSeconds = 0;
+      for (const record of records) {
+        const timeIn = new Date(record.timeIn);
+        const timeOut = new Date(record.timeOut);
+        totalSeconds += Math.floor((timeOut - timeIn) / 1000);
+      }
+
+      // Save the totalResidencyTime back to the member
+      await Schema.member.updateOne(
+        { _id: member._id },
+        { $set: { totalResidencyTime: totalSeconds } }
+      );
+    }
+
+    console.log(`Successfully updated total residency time for all members of ${committee}`);
+  } catch (err) {
+    console.error('Failed to update residency times:', err);
+  }
+}
+
+
 
 module.exports = {
     createNewResidency,
     getMemberResidency,
-    getLatestMemberResidency
+    getLatestMemberResidency,
+    computeTotalResidency, 
+    updateTotalResidencyForCommittee
 };

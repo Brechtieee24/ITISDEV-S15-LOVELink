@@ -80,44 +80,31 @@ async function filterByCommittee(committeeName) {
     }
 }
 
-async function addTotalActivityTime(email,duration){
-    try {
-        const user = await Schema.member.findOne({email}).exec()
-        if (!user) return null;
+async function updateFormattedResidency(committee) {
+  try {
+    const members = await Schema.member.find({ committee }).lean();
 
-        user.totalResidencyTime += duration;
-        await user.save();
-        return user;
-    } catch (err) {
-        console.error("Error fetching user:", err);
-        return null;
+    for (const member of members) {
+      const totalSeconds = Math.floor(member.totalResidencyTime || 0); // ensure integer
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      const pad = n => n.toString().padStart(2, '0');
+      const formatted = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+      await Schema.member.findByIdAndUpdate(member._id, {
+        formattedResidencyTime: formatted
+      });
     }
+
+    console.log("Formatted residency times updated from totalResidencyTime.");
+  } catch (error) {
+    console.error("Error updating formatted residency time:", error);
+  }
 }
 
-async function formatTotalActivityTime(email){
-    try {
-        const user = await Schema.member.findOne({email}).exec()
-        if (!user) return null;
-
-        const totalSeconds = Math.floor(user.totalResidencyTime / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-
-        const pad = (num) => String(num).padStart(2, '0');
-
-        const formattedDate = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-
-        user.formattedResidencyTime = formattedDate;
-
-        await user.save();
-        
-        return user
-    } catch (err){
-        console.error("Error fetching user:", err);
-        return null;
-    }
-}
 
 async function filterByCommitteeandHour(committeeName, hours) {
     milliseconds = hours * 60 * 60 * 1000
@@ -137,7 +124,6 @@ module.exports = {
     userAboutInfo,
     getUserById,
     filterByCommittee,
-    addTotalActivityTime,
-    formatTotalActivityTime,
-    filterByCommitteeandHour
+    filterByCommitteeandHour,
+    updateFormattedResidency
 };

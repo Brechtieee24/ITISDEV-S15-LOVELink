@@ -3,6 +3,7 @@ const router = express.Router();
 const membersDataModule = require('../model/membersController.js');
 const residencyDataModule = require('../model/residencyHoursController.js');
 
+// view profile of other member
 router.get('/view-other-members', async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect('/');
 
@@ -23,16 +24,18 @@ router.get('/view-other-members', async (req, res) => {
     }
 });
 
+// view committee-specific members
 router.get('/specific-office-members', async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect('/');
 
    try {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);
-        const position = req.query.position; 
-    
+        const committeeName = req.query.position; 
+        await residencyDataModule.updateTotalResidencyForCommittee(committeeName);
+        await membersDataModule.updateFormattedResidency(committeeName);
 
-        const members = await membersDataModule.filterByCommittee(position);
+        const members = await membersDataModule.filterByCommittee(committeeName);
 
         res.render('pages/specific-office-members', {
             title: 'View Members',
@@ -40,7 +43,7 @@ router.get('/specific-office-members', async (req, res) => {
             showNavBar: true,
             user: userData,
             photo: req.session.user.photo,
-            position: position,
+            position: committeeName,
             members: members
         });
 
@@ -51,16 +54,17 @@ router.get('/specific-office-members', async (req, res) => {
 });
 
 
+// view filtered members
 router.get('/filtered-office-members', async (req, res) => {
     if (!req.isAuthenticated()) return res.redirect('/');
 
    try {
         const email = req.session.user.email;; // update to user session
         const userData = await membersDataModule.getUser(email);
-        const position = req.query.position; 
+        const committeeName = req.query.committeeName; 
         const filterHour = req.query.hour;
 
-        const members = await membersDataModule.filterByCommitteeandHour(position,filterHour);
+        const members = await membersDataModule.filterByCommitteeandHour(committeeName,filterHour);
 
         res.render('pages/specific-office-members', {
             title: 'View Members',
@@ -68,7 +72,7 @@ router.get('/filtered-office-members', async (req, res) => {
             showNavBar: true,
             user: userData,
             photo: req.session.user.photo,
-            position: position,
+            position: committeeName,
             members: members
         });
 
