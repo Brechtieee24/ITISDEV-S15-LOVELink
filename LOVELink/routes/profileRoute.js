@@ -11,6 +11,7 @@ router.get('/profile/', async (req, res) => {
   const email = req.session.user.email; // update to user session
   const userData = await membersDataModule.getUser(email);
   const userActivities = await activitiesDataModule.getEventsOfUser(userData?._id); 
+  const residency = await residencyDataModule.computeMonthlyResidency(userData._id); 
  
   console.log("Looking for email:", email);
   console.log(req.session.user.photo);
@@ -25,11 +26,7 @@ router.get('/profile/', async (req, res) => {
     aboutInfo: userData?.aboutInfo,
     photo: req.session.user.photo,
     showNavBar: true,
-    residency: {
-      may: '8 hours and 10 Minutes',
-      june: '8 hours and 10 Minutes',
-      july: '8 hours and 10 Minutes'
-    },
+    residency,
     activities: userActivities
   });
 });

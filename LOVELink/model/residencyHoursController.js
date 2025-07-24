@@ -1,6 +1,7 @@
 const Schema = require('./schema');
 const membersDataModule = require('./membersController'); 
 
+// add new residency
 async function createNewResidency(timeIn, timeOut, memberId) { // store in express route the time in before creating this object
     try {
             const newResidency = await Schema.residencyhour.create({
@@ -22,6 +23,7 @@ async function createNewResidency(timeIn, timeOut, memberId) { // store in expre
     
 }
 
+// get the list of member's residency 
 async function getMemberResidency(memberId) {
   try {
     const residencyRecords = await Schema.residencyhour.find({ memberId })
@@ -34,7 +36,7 @@ async function getMemberResidency(memberId) {
   }
 }
 
-
+// get latest member residency
 async function getLatestMemberResidency(memberId) {
     try {
         const latestRecord = await Schema.residencyhour.findOne({ memberId })
@@ -67,6 +69,7 @@ async function computeTotalResidency(memberId) {
   }
 }
 
+// update total residency of members for the selected committee
 async function updateTotalResidencyForCommittee(committee) {
   try {
     const members = await membersDataModule.filterByCommittee(committee);
@@ -94,12 +97,42 @@ async function updateTotalResidencyForCommittee(committee) {
   }
 }
 
+// get monthly residency 
+async function computeMonthlyResidency(memberId, year = 2025, months = ['may', 'june', 'july']) {
+  const logs = await getMemberResidency(memberId);
 
+  const monthlyResidency = {};
+
+  for (const log of logs) {
+    const { timeIn, timeOut } = log;
+
+    const logMonth = timeIn.toLocaleString('default', { month: 'long' }).toLowerCase(); 
+    const logYear = timeIn.getFullYear();
+
+    if (logYear === year && months.includes(logMonth)) {
+      if (!monthlyResidency[logMonth]) monthlyResidency[logMonth] = 0;
+      monthlyResidency[logMonth] += (timeOut - timeIn);
+    }
+  }
+
+  // Format for display
+  const formattedResidency = {};
+  for (const month of months) {
+    const totalMs = monthlyResidency[month] || 0;
+    const totalSec = Math.floor(totalMs / 1000);
+    const hours = Math.floor(totalSec / 3600);
+    const minutes = Math.floor((totalSec % 3600) / 60);
+    formattedResidency[month] = `${hours} hours and ${minutes} minutes`;
+  }
+
+  return formattedResidency;
+}
 
 module.exports = {
     createNewResidency,
     getMemberResidency,
     getLatestMemberResidency,
     computeTotalResidency, 
-    updateTotalResidencyForCommittee
+    updateTotalResidencyForCommittee,
+    computeMonthlyResidency
 };
