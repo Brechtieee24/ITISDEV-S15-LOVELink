@@ -93,7 +93,6 @@ app.use((req, res, next) => {
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
-app.use(express.static(path.join(__dirname, 'public')));
 
 hbs.registerHelper('eq', (a, b) => a === b);
 hbs.registerHelper('concatClass', (baseClass, condition, conditionalClass) =>
