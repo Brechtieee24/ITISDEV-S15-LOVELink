@@ -18,19 +18,21 @@
       </div>
     </div>
 
-    <!-- Save Button Outside user-info-section -->
-    <div class="info-sections-wrapper">
+  <!-- Save Bio and Upload Photo - Shared Wrapper -->
+  <div class="left-controls-wrapper">
+    <!-- Save Bio Form -->
+    <form id="bioForm">
       <button id="saveBioBtn" class="confirm-btn-text confirm-btn-wrapper" type="submit">
         Save Bio
       </button>
-    </div>
-  </form>
+    </form>
 
-  <!-- upload profile photo -->
-  <div class="info-sections-wrapper">
+    <!-- Upload Photo Form -->
     <form action="/upload-profile" method="POST" enctype="multipart/form-data" class="upload-form">
       <input type="file" name="profileImg" accept="image/*" required class="custom-file-input">
-      <button type="submit" class="update-photo-wrapper update-photo-text">Upload Photo</button>
+      <button type="submit" class="update-photo-wrapper">
+        <span class="update-photo-text">Upload Photo</span>
+      </button>
     </form>
   </div>
 
