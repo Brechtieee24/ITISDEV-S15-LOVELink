@@ -7,6 +7,11 @@ router.get('/home', async (req, res) => {
 
   const email = req.session.user.email;
   const userData = await membersDataModule.getUser(email);
+
+  if(userData.photo){
+    req.session.user.photo = userData.photo;
+  }
+
   const photo = req.session.user.photo || '/default.png';
 
   console.log("User:", userData);

@@ -11,7 +11,7 @@
   <!-- User Info Section -->
   <div class="user-info-section">
     <div class="user-avatar-wrapper">
-      <img class="user-avatar" src="/Images/user.png" alt="User" />
+      <img class="user-avatar" src="{{otherUserPhoto}}" alt="User" />
     </div>
     <div>
       <div class="profile-name">
@@ -22,4 +22,27 @@
       </div>
     </div>
   </div>
+
+  <div class="right-column">
+      <div class="activities-container">
+        <div class="activities-label-wrapper">
+          <div class="activities-label-text">List of Activities</div>
+        </div>
+        <div class="activities-section">
+          <div class="activities-header">
+            <div class="activities-title">Title</div>
+            <div class="activities-date">Date</div>
+          </div>
+          <div class="activity-entries">
+            {{#each activities}}
+              <div class="activity-entry">
+                <span>{{this.eventName}}</span>
+                <span>{{this.date}}</span>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+    
 </div>

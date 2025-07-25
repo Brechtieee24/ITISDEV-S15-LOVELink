@@ -39,7 +39,14 @@ const membersSchema = new Schema({
         default: "00:00:00"
     },
 
-    lastLogin: Date // update erd
+    lastLogin: Date, // update erd
+    
+    photo: String,
+
+    cloudinaryId: {
+        type: String
+    }
+
 });
 
 const residencyHoursSchema = new Schema({

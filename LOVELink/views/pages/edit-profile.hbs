@@ -25,6 +25,16 @@
       </button>
     </div>
   </form>
+
+  <!-- upload profile photo -->
+  <div class="info-sections-wrapper">
+    <form action="/upload-profile" method="POST" enctype="multipart/form-data" class="upload-form">
+      <input type="file" name="profileImg" accept="image/*" required class="custom-file-input">
+      <button type="submit" class="update-photo-wrapper update-photo-text">Upload Photo</button>
+    </form>
+  </div>
+
+  
 </div>
 
 <!-- Bio Saved Modal -->

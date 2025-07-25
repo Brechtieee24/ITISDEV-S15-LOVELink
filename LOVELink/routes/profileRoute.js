@@ -3,6 +3,8 @@ const router = express.Router();
 const membersDataModule = require('../model/membersController.js');
 const activitiesDataModule = require('../model/activityParticipationsController');
 const residencyDataModule = require('../model/residencyHoursController');
+const participationDataModule = require('../model/activityParticipationsController.js');
+
 
 // GET /profile
 router.get('/profile/', async (req, res) => {
@@ -37,6 +39,7 @@ router.get('/view-profile/:id', async (req, res) => {
   
   const id = req.params.id;
   const userData = await membersDataModule.getUserById(id);
+  const userActivities = await participationDataModule.getEventsOfUser(id);
    
   res.render('pages/others-profile', {
     styles: '<link rel="stylesheet" href="/css/Profile.css">',
@@ -45,7 +48,9 @@ router.get('/view-profile/:id', async (req, res) => {
     lastName: userData?.lastName,
     committee: userData?.committee,
     aboutInfo: userData?.aboutInfo,
-    photo: req.session.user.photo
+    photo: req.session.user.photo,
+    activities: userActivities,
+    otherUserPhoto: userData?.photo || "/Images/user.png"
   }); 
 });
 

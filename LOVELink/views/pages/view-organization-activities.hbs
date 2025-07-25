@@ -7,17 +7,21 @@
         </div>
 
         <div class = "activities">
-            {{#if events}}
+            {{#if events.length}}
                 {{#each events}}
-                    <div class = "event-container"> 
-                        <p>{{this.eventName}}</p>
-                        <p>{{this.date}}</p>
+                    <div class="event-container"> 
+                    <p>
+                        {{this.eventName}} 
+                        {{#if ../user.isOfficer}} 
+                            <span style="font-size: 30px; font-style: italic;">({{this._id}})</span>
+                        {{/if}}
+                    </p>
+                    <p>{{this.date}}</p>
                     </div>
                 {{/each}}
-            {{else}}
+                {{else}}
                 <h1>No Events Found</h1>
             {{/if}}
-
         </div>
 
       <div class="return">

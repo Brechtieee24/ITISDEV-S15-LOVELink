@@ -122,6 +122,17 @@ async function filterByCommitteeAndHour(committeeName, hours) {
   }
 }
 
+async function updateUserProfilePic(email, imageUrl, cloudinaryId) {
+  return await Schema.member.findOneAndUpdate(
+    { email },
+    {
+      photo: imageUrl,
+      cloudinaryId: cloudinaryId,
+    },
+    { new: true }
+  );
+}
+
 
 module.exports = {
     getUser,
@@ -130,5 +141,6 @@ module.exports = {
     getUserById,
     filterByCommittee,
     updateFormattedResidency,
+    updateUserProfilePic,
     filterByCommitteeAndHour
 };

@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 // Session setup
 app.use(session({
   secret: 'your-secret-key',

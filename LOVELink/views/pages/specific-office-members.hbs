@@ -11,7 +11,7 @@
                     <a href="/view-profile/{{this._id}}" class="members-container-link">
                     <div class="members-container"> 
                         <div class="member-details">
-                        <img class="member-profile-picture" src="/Images/user.png" alt="Avatar" />
+                        <img class="member-profile-picture" src="{{#if this.photo}}{{this.photo}}{{else}}/Images/user.png{{/if}}" alt="Avatar" />
                         <p>{{this.firstName}} {{this.lastName}}</p>
                         </div>
 
