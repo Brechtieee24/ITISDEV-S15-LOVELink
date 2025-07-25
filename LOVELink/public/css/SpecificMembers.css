@@ -43,6 +43,11 @@ body {
     gap: 15px;
 }
 
+.members h1{
+    color: #fa4736;
+    font-size: 50px;
+}
+
 .members-container {
     width: 1200px;
     background-color: #6c9293;

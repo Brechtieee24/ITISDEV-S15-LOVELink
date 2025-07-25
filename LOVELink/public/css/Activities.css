@@ -43,6 +43,11 @@ body {
     gap: 15px;
 }
 
+.activities h1{
+    color: #fa4736;
+    font-size: 50px;
+}
+
 .event-container {
     width: 1200px;
     background-color: #E5E5E5;

@@ -7,12 +7,17 @@
         </div>
 
         <div class = "activities">
-            {{#each events}}
-                <div class = "event-container"> 
-                    <p>{{this.eventName}}</p>
-                    <p>{{this.date}}</p>
-                </div>
-            {{/each}}
+            {{#if events}}
+                {{#each events}}
+                    <div class = "event-container"> 
+                        <p>{{this.eventName}}</p>
+                        <p>{{this.date}}</p>
+                    </div>
+                {{/each}}
+            {{else}}
+                <h1>No Events Found</h1>
+            {{/if}}
+
         </div>
 
       <div class="return">
