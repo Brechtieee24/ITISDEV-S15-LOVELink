@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const membersDataModule = require('../model/membersController.js');
 
+// used in file upload
 const multer = require('multer');
-const { storage, cloudinary } = require('../config/cloudinary'); // Make sure this path is correct
+const { storage, cloudinary } = require('../config/cloudinary');
 const upload = multer({ storage });
 
 
@@ -64,7 +65,7 @@ router.post('/upload-profile', upload.single('profileImg'), async (req, res) => 
     const imageUrl = req.file.path;
     const publicId = req.file.filename; // public_id from Cloudinary
 
-    // Get user from DB
+    // Get user
     const user = await membersDataModule.getUser(email);
 
     // If user has an existing image, delete it from Cloudinary
@@ -82,7 +83,5 @@ router.post('/upload-profile', upload.single('profileImg'), async (req, res) => 
     res.status(500).send("Upload failed");
   }
 });
-
-
 
 module.exports = router;

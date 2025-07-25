@@ -2,31 +2,63 @@ const Schema = require('./schema');
 const membersDataModule = require('./membersController'); 
 
 // add new residency
-async function createNewResidency(timeIn, timeOut, memberId) { // store in express route the time in before creating this object
-    try {
-            const newResidency = await Schema.residencyhour.create({
-                timeIn,
-                timeOut,
-                memberId
-            });
+async function createNewResidency(timeIn, memberId) { 
+  try {
+    const newResidency = await Schema.residencyhour.create({
+      timeIn,
+      timeOut: null,
+      memberId
+    });
+
+    console.log('Successfully added an ongoing residency!');
+    console.log('Time In: ' + timeIn);
+    console.log('Member ID: ' + memberId);
     
-            console.log('Succesfully added a residency!');
-            console.log('Time In:' + timeIn);
-            console.log('Time Out:' + timeOut);
-            console.log('Member ID' + memberId);
-            return newResidency;
+    return newResidency;
+
+  } catch (error) {
+    console.error('Error adding residency:', error.message);
+    throw error; 
+  }
+}
+
+
+// get ongoing residency
+async function getOngoingResidency(memberId) {
+  try {
+    const ongoingRecord = await Schema.residencyhour.findOne({
+      memberId,
+      timeOut: null
+    }).lean();
     
-        } catch (error) {
-            console.error('Error adding event participation:', error.message);
-            throw error; 
-        }
-    
+    return ongoingRecord;
+  } catch (error) {
+    console.error('Error fetching ongoing residency record:', error);
+    throw error;
+  }
+}
+
+// close the ongoing residency
+async function setOngoingResidency(objectId) {
+  try {
+    const updatedRecord = await Schema.residencyhour.findByIdAndUpdate(
+      objectId,
+      { timeOut: new Date() },
+      { new: true } // return the updated document
+    ).lean();
+
+    console.log('Successfully updated ongoing residency:', updatedRecord);
+    return updatedRecord;
+  } catch (error) {
+    console.error('Error updating ongoing residency record:', error);
+    throw error;
+  }
 }
 
 // get the list of member's residency 
 async function getMemberResidency(memberId) {
   try {
-    const residencyRecords = await Schema.residencyhour.find({ memberId })
+    const residencyRecords = await Schema.residencyhour.find({ memberId, timeOut: { $ne: null } })
       .sort({ timeIn: -1 }) // Sort by latest timeIn first
       .lean();
     return residencyRecords;
@@ -52,7 +84,7 @@ async function getLatestMemberResidency(memberId) {
 // sum of all residency hours 
 async function computeTotalResidency(memberId) {
   try {
-    const records = await Schema.residencyhour.find({ memberId });
+    const records = await Schema.residencyhour.find({ memberId, timeOut: { $ne: null } });
 
     let totalMilliseconds = 0;
 
@@ -75,7 +107,7 @@ async function updateTotalResidencyForCommittee(committee) {
     const members = await membersDataModule.filterByCommittee(committee);
 
     for (const member of members) {
-      const records = await Schema.residencyhour.find({ memberId: member._id });
+      const records = await Schema.residencyhour.find({ memberId: member._id, timeOut: { $ne: null } });
 
       let totalSeconds = 0;
       for (const record of records) {
@@ -130,6 +162,8 @@ async function computeMonthlyResidency(memberId, year = 2025, months = ['may', '
 
 module.exports = {
     createNewResidency,
+    getOngoingResidency,
+    setOngoingResidency,
     getMemberResidency,
     getLatestMemberResidency,
     computeTotalResidency, 

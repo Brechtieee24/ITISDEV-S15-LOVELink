@@ -21,6 +21,7 @@ async function getUser(userEmail){
 
 }
 
+// get user by id
 async function getUserById(memberId){
     try {
         const user = await Schema.member.findOne({ _id: memberId }).exec();
@@ -39,6 +40,7 @@ async function getUserById(memberId){
 
 }
 
+// update about info of user
 async function updateAboutInfo(email, aboutInfo) {
     try {
         const user = await Schema.member.findOne({ email }).exec();
@@ -70,6 +72,7 @@ async function userAboutInfo(memberId) {
     }
 }
 
+// get members of specific committee
 async function filterByCommittee(committeeName) {
     try {
         const members = await Schema.member.find({ committee: committeeName }).lean();
@@ -80,6 +83,7 @@ async function filterByCommittee(committeeName) {
     }
 }
 
+// update formatted residency of members
 async function updateFormattedResidency(committee) {
   try {
     const members = await Schema.member.find({ committee }).lean();
@@ -122,6 +126,7 @@ async function filterByCommitteeAndHour(committeeName, hours) {
   }
 }
 
+// update profile picture uploaded
 async function updateUserProfilePic(email, imageUrl, cloudinaryId) {
   return await Schema.member.findOneAndUpdate(
     { email },
@@ -132,7 +137,6 @@ async function updateUserProfilePic(email, imageUrl, cloudinaryId) {
     { new: true }
   );
 }
-
 
 module.exports = {
     getUser,

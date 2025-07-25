@@ -5,12 +5,11 @@ const activitiesDataModule = require('../model/activityParticipationsController'
 const residencyDataModule = require('../model/residencyHoursController');
 const participationDataModule = require('../model/activityParticipationsController.js');
 
-
-// GET /profile
+// GET profile
 router.get('/profile/', async (req, res) => {
    if (!req.isAuthenticated()) return res.redirect('/');
 
-  const email = req.session.user.email; // update to user session
+  const email = req.session.user.email;
   const userData = await membersDataModule.getUser(email);
   const userActivities = await activitiesDataModule.getEventsOfUser(userData?._id); 
   const residency = await residencyDataModule.computeMonthlyResidency(userData._id); 
@@ -33,7 +32,7 @@ router.get('/profile/', async (req, res) => {
   });
 });
 
-// Other profile page
+// View other profile route
 router.get('/view-profile/:id', async (req, res) => {
    if (!req.isAuthenticated()) return res.redirect('/');
   

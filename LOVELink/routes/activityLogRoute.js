@@ -115,12 +115,7 @@ router.post('/log-activity-input', async (req, res) => {
 
   // Redirect
   res.redirect('/log-activity');
-
-
-  
 });
-
-
 
 module.exports = router;
 

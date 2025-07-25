@@ -24,12 +24,12 @@ const membersSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    aboutInfo: { // update erd
+    aboutInfo: {
         type: String,
         default: 'Hi!'
     },
 
-    totalResidencyTime: {   // This is in milisecond
+    totalResidencyTime: {   // This is in seconds
         type: Number,
         default: '0'
     },
@@ -39,7 +39,7 @@ const membersSchema = new Schema({
         default: "00:00:00"
     },
 
-    lastLogin: Date, // update erd
+    lastLogin: Date, 
     
     photo: String,
 
@@ -55,8 +55,7 @@ const residencyHoursSchema = new Schema({
         required: true
     },
     timeOut: {
-        type: Date,
-        required: true
+        type: Date
     },
     memberId: { 
         type: Schema.Types.ObjectId,
