@@ -350,6 +350,102 @@
 
 }
 
+@media (max-width: 480px) {
+  .residency-page {
+    padding: 80px 20px 20px;
+  }
+
+  .residency-page .main-content-wrapper {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .residency-page .user-info-section {
+    flex-direction: column;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .residency-page .left-column {
+    margin-left: 0;
+    align-items: center;
+  }
+
+  .residency-page .log-section {
+    margin-left: 0;
+    align-items: center;
+  }
+
+  .residency-page .user-avatar-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .residency-page .update-btn-wrapper,
+  .residency-page .time-out-btn,
+  .residency-page .secondary-btn {
+    width: 90%;
+    max-width: 320px;
+    height: 60px;
+    font-size: 20px;
+  }
+
+  .residency-page .profile-name {
+    font-size: 28px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .residency-page .current-timestamp {
+    font-size: 20px;
+  }
+
+  .residency-page .table-header {
+    font-size: 20px;
+  }
+
+  .residency-page .table-content {
+    font-size: 16px;
+  }
+
+  .residency-page .qr-code-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .residency-page .qr-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .modal-content h2 {
+    font-size: 22px;
+  }
+
+  .modal-table th,
+  .modal-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .log-activity-container {
+    width: 90%;
+  }
+
+  .log-activity-container input[type="submit"],
+  .log-activity-container button {
+    font-size: 16px;
+    padding: 8px;
+  }
+}
+
 
 /* Modal Overlay */
 .modal-overlay {
