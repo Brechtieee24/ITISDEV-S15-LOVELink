@@ -19,6 +19,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 30px;
   margin: 0 auto 40px auto;
   max-width: 1440px;
@@ -83,40 +84,59 @@ body {
 .left-controls-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;     
+  align-items: center; /* centers contents horizontally */
   gap: 20px;
-  padding-left: 200px;          
+  padding: 0 5%;       /* dynamic horizontal padding */
   margin-top: 20px;
 }
+
 
 /* Info Sections */
 .info-sections-wrapper {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   margin-top: 40px;
   padding: 0 96px;
   max-width: 1440px;
-  margin-left: 150px;
+  margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+  justify-content: center;
 }
 
-.left-column{
+.left-column.right-column {
   display: flex;
   flex-direction: column;
-  margin-left: -50px;
-  margin-top: -40px;
+  margin-top: 0;
+  margin-left: 0;
 }
+
 .right-column {
   display: flex;
   flex-direction: column;
-  margin-left: 60px;
-  margin-top: -40px
+  margin-top: 0;
+  margin-left: 0;
 }
+
+.profile-update-btn {
+  width: 260px;
+  height: 70px;
+  background: #6C9293;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  align-self: flex-start;      
+  margin-left: 50px;           
+}
+
 
 .update-btn-wrapper,
 .residency-container {
-  margin-left: 40px;
+  margin-left: 0;
 }
 
 /* Others-profile */
@@ -200,16 +220,13 @@ body {
   font-weight: 600;
 }
 
-
 /* Residencies Section */
 .residency-container {
   display: flex;
   flex-direction: column;
-  margin-top: 30px; 
+  margin-top: 30px;
   width: 100%;
-  max-width: 822px; 
-  margin-left: -5px; 
-  margin-right: auto;
+  max-width: 822px;
 }
 
 .residency-label-wrapper {
@@ -332,7 +349,19 @@ body {
   resize: none;
 }
 
-/* Responsive */
+/* Responsive Tweaks */
+@media (max-width: 1440px) {
+  .info-sections-wrapper {
+    padding: 0 40px;
+    justify-content: center;
+  }
+
+  .left-column,
+  .right-column {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 1200px) {
   .main-content-wrapper,
   .info-sections-wrapper,
@@ -379,6 +408,7 @@ body {
     max-width: 300px;
     margin: 20px auto;
   }
+
 
   .residency-label-wrapper,
   .residency-section {
