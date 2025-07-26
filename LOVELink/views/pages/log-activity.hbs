@@ -25,6 +25,12 @@
         </div>
       {{/if}}
 
+      {{#if errorMessage}}
+        <div style="background-color: #edd4d4; padding: 10px; border-radius: 5px; color: #571715; margin-bottom: 15px; display: inline-block; white-space: nowrap; text-align: center">
+           <p>No participants were scanned. <br> Please scan at least one QR code.</p>
+        </div>
+      {{/if}}
+
       <div id="input-panel" class="log-activity-container" style="display:none;">
         <div class="top-part"> 
           <button type="button" class="close-button" onclick="closePanel()">×</button>

@@ -8,6 +8,7 @@ const participationDataModule = require('../model/activityParticipationsControll
 // Residency Landing
 router.get('/log-activity', async (req, res) =>  {
   const successMessage = req.session.successMessage || null;
+  const errorMessage = req.session.errorMessage || null;
   delete req.session.successMessage;
 
   if (!req.session.user) return res.redirect('/');
@@ -69,6 +70,7 @@ router.get('/log-activity', async (req, res) =>  {
     duration: durationString,
     photo: req.session.user.photo,
     successMessage,
+    errorMessage,
     styles: `
       <link rel="stylesheet" href="/css/Profile.css">
       <link rel="stylesheet" href="/css/Residency.css">
@@ -100,6 +102,12 @@ router.post('/log-activity-input', async (req, res) => {
 
   console.log("Event ID:", eid);
   console.log("Scanned Participants:", scannedData);
+
+    if (scannedData.length === 0) {
+      req.session.errorMessage = "No participants were scanned. Please scan at least one QR code.";
+      return res.redirect('/log-activity');
+    }
+
 
   for (const memberId of scannedData) {
     try {
