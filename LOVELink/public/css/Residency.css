@@ -1,3 +1,25 @@
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.residency-page .main-content-wrapper,
+.residency-page .profile-name,
+.residency-page .user-avatar-wrapper,
+.residency-page .residency-table-wrapper,
+.residency-page .secondary-btn,
+.residency-page .update-btn-wrapper,
+.residency-page .time-out-btn {
+  animation: fadeInSlide 0.8s ease-out forwards;
+  opacity: 0;
+}
+
 /* Residency.css */
 .residency-page {
   background-color: #B0C4BB;

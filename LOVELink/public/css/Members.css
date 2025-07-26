@@ -1,3 +1,32 @@
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-members-container,
+.title,
+.buttons-container button {
+  animation: fadeInSlide 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.title {
+  animation-delay: 0.2s;
+}
+.buttons-container button:nth-child(1) {
+  animation-delay: 0.4s;
+}
+.buttons-container button:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+
 /* Base Styles */
 body {
     margin: 0;
