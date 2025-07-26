@@ -92,19 +92,31 @@ body {
 /* Info Sections */
 .info-sections-wrapper {
   display: flex;
-  gap: 62px;
+  gap: 40px;
   margin-top: 40px;
   padding: 0 96px;
   max-width: 1440px;
-  margin-left: 110px;
+  margin-left: 150px;
   margin-right: auto;
   box-sizing: border-box;
 }
 
-.left-column,
+.left-column{
+  display: flex;
+  flex-direction: column;
+  margin-left: -50px;
+  margin-top: -40px;
+}
 .right-column {
   display: flex;
   flex-direction: column;
+  margin-left: 60px;
+  margin-top: -40px
+}
+
+.update-btn-wrapper,
+.residency-container {
+  margin-left: 40px;
 }
 
 /* Others-profile */
@@ -196,7 +208,7 @@ body {
   margin-top: 30px; 
   width: 100%;
   max-width: 822px; 
-  margin-left: -40px; 
+  margin-left: -5px; 
   margin-right: auto;
 }
 
