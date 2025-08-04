@@ -20,21 +20,22 @@ A web application designed to manage user participation, track residency hours, 
 ---
 
 ## 🗂️ Project Structure
-LOVELink/
-├── config/ # Configuration files (DB, passport, etc.)
-├── model/ # Controllers and Mongoose schema
-├── public/ # Static assets (images, CSS, JS)
-│ ├── css/
-│ ├── js/
-│ └── Images/
-├── routes/ # Route handlers (Express)
-├── views/ # Handlebars templates (pages, partials, layout)
-├── .env # Environment variables
-├── .gitignore # Git ignore rules
-├── app.js # Entry point
-├── package.json # Project metadata and scripts
-└── package-lock.json # Dependency lock file
-
+```
+   LOVELink/
+   ├── config/ # Configuration files (DB, passport, etc.)
+   ├── model/ # Controllers and Mongoose schema
+   ├── public/ # Static assets (images, CSS, JS)
+   │ ├── css/
+   │ ├── js/
+   │ └── Images/
+   ├── routes/ # Route handlers (Express)
+   ├── views/ # Handlebars templates (pages, partials, layout)
+   ├── .env # Environment variables
+   ├── .gitignore # Git ignore rules
+   ├── app.js # Entry point
+   ├── package.json # Project metadata and scripts
+   └── package-lock.json # Dependency lock file
+```
 ## ⚙️ Installation Guide
 
 1. **Clone the Repository**
