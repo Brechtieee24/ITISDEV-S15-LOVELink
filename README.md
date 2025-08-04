@@ -92,9 +92,5 @@ Installable via:
 | qrcode                    | ^1.5.4  | QR code generation                   |
 
 ## 👥 Author
-Albrecht Gabriel Abad
-Hana Jang
-Josh Denzel Ng
-Cedric Clifford Ong
-Maverick Olivares
+Albrecht Gabriel Abad, Hana Jang, Josh Denzel Ng, Cedric Clifford Ong, Maverick Olivares
 
